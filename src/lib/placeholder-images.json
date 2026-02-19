@@ -1,3 +1,52 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-tech",
+      "description": "Abstract engineering and technology network background",
+      "imageUrl": "https://images.unsplash.com/photo-1529926542502-77aceca00aa3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxlbnRlcnByaXNlJTIwdGVjaG5vbG9neXxlbnwwfHx8fDE3NzE1MTA2ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "enterprise technology"
+    },
+    {
+      "id": "easyedit-dashboard",
+      "description": "Clean software interface dashboard showing modules",
+      "imageUrl": "https://images.unsplash.com/photo-1575388902449-6bca946ad549?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzb2Z0d2FyZSUyMGRhc2hib2FyZHxlbnwwfHx8fDE3NzE0MTUyODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "software dashboard"
+    },
+    {
+      "id": "trust-security",
+      "description": "Abstract security and data protection visualization",
+      "imageUrl": "https://images.unsplash.com/photo-1620825937374-87fc7d6bddc2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjeWJlciUyMHNlY3VyaXR5fGVufDB8fHx8MTc3MTQ5NTY4NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cyber security"
+    },
+    {
+      "id": "case-study-1",
+      "description": "Modern e-commerce platform interface",
+      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxlY29tbWVyY2UlMjB3ZWJzaXRlfGVufDB8fHx8MTc3MTUwOTM0M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ecommerce website"
+    },
+    {
+      "id": "case-study-2",
+      "description": "Enterprise custom portal interface",
+      "imageUrl": "https://images.unsplash.com/photo-1689608817385-2c12eff65ac1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3ZWIlMjBwb3J0YWx8ZW58MHx8fHwxNzcxNTEwNjgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "web portal"
+    },
+    {
+      "id": "case-study-3",
+      "description": "Industrial logistics integration dashboard",
+      "imageUrl": "https://images.unsplash.com/photo-1518835306470-ea7854386c80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsb2dpc3RpY3MlMjBkYXNoYm9hcmR8ZW58MHx8fHwxNzcxNTEwNjgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "logistics dashboard"
+    },
+    {
+      "id": "team-working",
+      "description": "Professional engineering team in office",
+      "imageUrl": "https://images.unsplash.com/photo-1748256622734-92241ae7b43f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGVuZ2luZWVyc3xlbnwwfHx8fDE3NzE1MTA2ODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "software engineers"
+    },
+    {
+      "id": "insight-1",
+      "description": "AI and technology conceptual image",
+      "imageUrl": "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc3MTQzOTI2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "artificial intelligence"
+    }
+  ]
 }
