@@ -5,50 +5,41 @@
 
 @layer base {
   :root {
-    /* Primary: Deep Blue #1E3A8A (224 64% 33%) */
-    /* Background: Light Gray #F0F4F8 (210 31% 95%) */
-    /* Accent: Teal #38A3A5 (181 49% 43%) */
-    --background: 210 31% 98%;
-    --foreground: 224 64% 10%;
+    /* WEB Marketing Brand Palette */
+    /* Primarna: #00AEEF (196 100% 47%) */
+    /* Sekundarna: #00AAA6 (179 100% 33%) */
+    /* Akcent: #AD208E (313 69% 40%) */
+    /* Neutralne: #E6E6E6 (obrubi), #333333 (sekundarni tekst) */
+    
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    
     --card: 0 0% 100%;
-    --card-foreground: 224 64% 10%;
+    --card-foreground: 0 0% 0%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 224 64% 10%;
-    --primary: 224 64% 33%;
-    --primary-foreground: 210 31% 98%;
-    --secondary: 210 20% 90%;
-    --secondary-foreground: 224 64% 20%;
-    --muted: 210 20% 94%;
-    --muted-foreground: 224 10% 40%;
-    --accent: 181 49% 43%;
+    --popover-foreground: 0 0% 0%;
+    
+    --primary: 196 100% 47%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 179 100% 33%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 20%;
+    
+    --accent: 313 69% 40%;
     --accent-foreground: 0 0% 100%;
+    
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 31% 98%;
-    --border: 210 20% 90%;
-    --input: 210 20% 90%;
-    --ring: 181 49% 43%;
-    --radius: 0.25rem;
-  }
-  .dark {
-    --background: 224 64% 5%;
-    --foreground: 210 31% 98%;
-    --card: 224 64% 8%;
-    --card-foreground: 210 31% 98%;
-    --popover: 224 64% 8%;
-    --popover-foreground: 210 31% 98%;
-    --primary: 210 31% 98%;
-    --primary-foreground: 224 64% 33%;
-    --secondary: 224 64% 15%;
-    --secondary-foreground: 210 31% 98%;
-    --muted: 224 64% 12%;
-    --muted-foreground: 210 10% 70%;
-    --accent: 181 49% 43%;
-    --accent-foreground: 210 31% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 31% 98%;
-    --border: 224 64% 15%;
-    --input: 224 64% 15%;
-    --ring: 181 49% 43%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 196 100% 47%;
+    
+    --radius: 0rem; /* Sharp, enterprise/tech look */
   }
 }
 
@@ -57,9 +48,15 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body leading-relaxed;
+    @apply bg-background text-foreground font-body antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-headline font-semibold tracking-tight;
+    @apply font-headline font-bold tracking-tight text-black;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

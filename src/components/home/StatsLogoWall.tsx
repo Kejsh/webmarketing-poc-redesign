@@ -1,55 +1,49 @@
 
 export function StatsLogoWall() {
-  const LOGO_PLACEHOLDERS = Array.from({ length: 6 });
+  const LOGO_COUNT = 6;
 
   return (
-    <section className="py-24 bg-white border-y border-slate-100">
+    <section className="py-20 bg-white border-y border-muted">
       <div className="container mx-auto px-4">
-        <div className="mb-16">
-          <h3 className="text-center text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground mb-12">
-            Vjeruju nam vodeće tvrtke i institucije
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center opacity-40 grayscale hover:grayscale-0 transition-all">
-            {LOGO_PLACEHOLDERS.map((_, idx) => (
-              <div key={idx} className="h-12 flex items-center justify-center">
-                <div className="w-full h-8 bg-slate-200 rounded animate-pulse" />
-              </div>
-            ))}
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+          <div className="w-full lg:w-1/3">
+            <h2 className="text-2xl font-black uppercase tracking-tighter mb-4 leading-none">
+              WEB Marketing u brojkama
+            </h2>
+            <p className="text-sm text-muted-foreground font-medium mb-8">
+              Pouzdanost potvrđena kroz četvrt stoljeća inženjerske izvrsnosti i strateških partnerstava.
+            </p>
+            <div className="grid grid-cols-2 gap-y-8 gap-x-4">
+               <div className="space-y-1">
+                 <p className="text-3xl font-black text-black">25</p>
+                 <p className="text-[9px] font-bold uppercase tracking-widest text-secondary">Godina rada</p>
+               </div>
+               <div className="space-y-1">
+                 <p className="text-3xl font-black text-black">27</p>
+                 <p className="text-[9px] font-bold uppercase tracking-widest text-accent">Nagrada struke</p>
+               </div>
+               <div className="space-y-1">
+                 <p className="text-3xl font-black text-black">250+</p>
+                 <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">B2B klijenata</p>
+               </div>
+               <div className="space-y-1">
+                 <p className="text-3xl font-black text-black">ISO</p>
+                 <p className="text-[9px] font-bold uppercase tracking-widest text-primary">Security ready</p>
+               </div>
+            </div>
           </div>
-        </div>
 
-        <div className="max-w-4xl mx-auto p-12 bg-slate-50 rounded-2xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <blockquote className="text-xl font-medium text-primary italic leading-relaxed">
-                "WEB Marketing nam nije samo isporučio web stranicu, već kompletan sustav koji je transformirao našu prodaju. EasyEdit je platforma koja nam je dala neovisnost."
-              </blockquote>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-slate-300" />
-                <div>
-                  <p className="font-bold text-primary">Direktor Marketinga</p>
-                  <p className="text-sm text-muted-foreground">Vodeća Retail Mreža</p>
+          <div className="w-full lg:w-2/3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-1px bg-muted border border-muted">
+              {Array.from({ length: LOGO_COUNT }).map((_, idx) => (
+                <div key={idx} className="bg-white aspect-[3/2] flex items-center justify-center p-8 group hover:bg-black transition-colors">
+                  <div className="w-full h-8 bg-muted group-hover:bg-white/20 transition-colors" />
                 </div>
-              </div>
+              ))}
             </div>
-            <div className="grid grid-cols-2 gap-8 text-center">
-              <div>
-                <p className="text-4xl font-bold text-primary mb-1">270</p>
-                <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider">Aktivnih Licenci</p>
-              </div>
-              <div>
-                <p className="text-4xl font-bold text-primary mb-1">ISO</p>
-                <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider">Pripravnost</p>
-              </div>
-              <div>
-                <p className="text-4xl font-bold text-primary mb-1">50+</p>
-                <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider">Certifikata</p>
-              </div>
-              <div>
-                <p className="text-4xl font-bold text-primary mb-1">99.9%</p>
-                <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider">Uptime SLA</p>
-              </div>
-            </div>
+            <p className="text-[10px] font-bold uppercase tracking-widest mt-6 text-center text-muted-foreground">
+              Partneri u digitalnoj transformaciji
+            </p>
           </div>
         </div>
       </div>

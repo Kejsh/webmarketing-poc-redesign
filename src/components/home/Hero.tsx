@@ -1,68 +1,66 @@
 
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 
 export function Hero() {
-  const heroImg = PlaceHolderImages.find((img) => img.id === "hero-tech");
-
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-slate-50">
+    <section className="relative pt-40 pb-20 lg:pt-56 lg:pb-32 bg-white overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-6 uppercase tracking-wider">
-            <span>Engineering Partner • Custom Development</span>
+        <div className="max-w-5xl">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-black text-white text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
+            <span className="w-2 h-2 bg-primary animate-pulse" />
+            Vlastita Tehnologija • Engineering Partner
           </div>
-          <h1 className="text-4xl lg:text-6xl font-headline font-bold mb-8 text-primary leading-[1.1]">
-            Custom rješenja na platformi koja uklanja ograničenja generičkih CMS-ova
+          
+          <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black mb-8 leading-[0.9] tracking-tighter uppercase italic">
+            Custom rješenja na <span className="text-primary">EasyEdit</span> platformi.
           </h1>
-          <p className="text-lg lg:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Razvijamo stabilne, sigurne i skalabilne digitalne sustave temeljene na vlastitom EasyEdit CMS-u. Fokusirani na inženjerske standarde i dugoročna partnerstva.
+          
+          <p className="text-xl lg:text-2xl text-muted-foreground font-medium max-w-3xl mb-12 leading-tight">
+            Razvijamo stabilne, sigurne i skalabilne digitalne sustave s fokusom na Agile procese, duboke integracije i dugoročnu tehnološku podršku.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <Button size="lg" className="h-12 px-8 text-base w-full sm:w-auto" asChild>
-              <Link href="/kontakt">Zatražite razgovor</Link>
+          
+          <div className="flex flex-col sm:flex-row items-center gap-4 mb-20">
+            <Button size="lg" className="h-14 px-10 text-sm font-black uppercase tracking-widest rounded-none w-full sm:w-auto bg-primary hover:bg-primary/90 transition-transform hover:-translate-y-1" asChild>
+              <Link href="/kontakt">Dogovori razgovor / Demo</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8 text-base w-full sm:w-auto" asChild>
-              <Link href="/easyedit">Zatražite demo</Link>
+            <Button size="lg" variant="outline" className="h-14 px-10 text-sm font-black uppercase tracking-widest rounded-none w-full sm:w-auto border-2 border-black hover:bg-black hover:text-white transition-transform hover:-translate-y-1" asChild>
+              <Link href="/kontakt?type=brief">Pošalji brief <ArrowRight className="w-4 h-4 ml-2"/></Link>
             </Button>
           </div>
 
-          <div className="border-t border-slate-200 pt-8 flex flex-wrap justify-center items-center gap-8 lg:gap-16">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-primary">25+</span>
-              <span className="text-xs text-muted-foreground uppercase tracking-tight leading-none text-left">Godina<br/>Iskustva</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-black/10">
+            <div className="space-y-1">
+              <p className="text-4xl font-black text-black">25+</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Godina iskustva</p>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-primary">500+</span>
-              <span className="text-xs text-muted-foreground uppercase tracking-tight leading-none text-left">Realiziranih<br/>Projekata</span>
+            <div className="space-y-1">
+              <p className="text-4xl font-black text-black">500+</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Projekata</p>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-primary">27</span>
-              <span className="text-xs text-muted-foreground uppercase tracking-tight leading-none text-left">Strukovnih<br/>Nagrada</span>
+            <div className="space-y-1">
+              <p className="text-4xl font-black text-black">270</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Aktivnih licenci</p>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-primary">250</span>
-              <span className="text-xs text-muted-foreground uppercase tracking-tight leading-none text-left">Zadovoljnih<br/>Klijenata</span>
+            <div className="flex items-center gap-4 border-l border-black/10 pl-8">
+              <div className="flex -space-x-3">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="w-8 h-8 rounded-full bg-muted border-2 border-white flex items-center justify-center text-[8px] font-bold">
+                    LOGO
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] font-black leading-tight uppercase tracking-tighter">
+                Vjeruju nam<br/>vodeće tvrtke
+              </p>
             </div>
           </div>
         </div>
       </div>
-
-      <div className="absolute top-0 right-0 -z-10 w-full h-full opacity-5 pointer-events-none">
-        {heroImg && (
-          <Image
-            src={heroImg.imageUrl}
-            alt={heroImg.description}
-            fill
-            className="object-cover"
-            priority
-            data-ai-hint={heroImg.imageHint}
-          />
-        )}
-      </div>
+      
+      {/* Abstract Tech Background Element */}
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-muted/30 -z-10 skew-x-[-12deg] translate-x-1/2" />
     </section>
   );
 }

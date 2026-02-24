@@ -1,30 +1,30 @@
 
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Layout, ShoppingCart, Settings, Share2, ArrowRight } from "lucide-react";
 
 const SOLUTIONS = [
   {
-    title: "Web platforme po mjeri",
-    description: "Sustavi dizajnirani za specifične poslovne procese, visoke performanse i SEO.",
+    title: "Web platforme",
+    description: "Enterprise rješenja dizajnirana za visoke performanse, SEO i specifične poslovne tokove.",
     href: "/rjesenja/web-platforme",
     icon: Layout,
   },
   {
     title: "E-commerce sustavi",
-    description: "B2B i B2C trgovine s naprednim integracijama i skalabilnom infrastrukturom.",
+    description: "B2B i B2C trgovine s naprednim integracijama i infrastrukturom za globalni rast.",
     href: "/rjesenja/ecommerce",
     icon: ShoppingCart,
   },
   {
-    title: "Custom softver i portali",
-    description: "Složena rješenja za upravljanje podacima, klijentima i internim procesima.",
-    href: "/rjesenja/custom-softver",
+    title: "Poslovni portali",
+    description: "Custom softver za upravljanje podacima, klijentima i optimizaciju internih procesa.",
+    href: "/rjesenja/poslovni-portali",
     icon: Settings,
   },
   {
     title: "Integracije",
-    description: "Besprijekorno povezivanje s ERP, CRM, Payment i logističkim sustavima.",
+    description: "Besprijekorno povezivanje s ERP (SAP, Navision), CRM, Payment i logističkim sustavima.",
     href: "/rjesenja/integracije",
     icon: Share2,
   },
@@ -32,42 +32,41 @@ const SOLUTIONS = [
 
 export function SolutionCards() {
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
           <div className="max-w-2xl">
-            <h2 className="text-3xl lg:text-4xl font-headline font-bold mb-4 text-primary">
-              Digitalna rješenja koja donose vrijednost
+            <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-4 leading-none italic">
+              Digitalna rješenja <span className="text-primary">koja donose vrijednost.</span>
             </h2>
-            <p className="text-muted-foreground">
-              Svako rješenje razvijamo s fokusom na dugoročnu održivost. Ne isporučujemo samo kod, isporučujemo digitalni alat za rast.
+            <p className="text-lg text-muted-foreground font-medium">
+              Ne isporučujemo samo kod, isporučujemo digitalne alate za rast i dugoročnu održivost vašeg poslovanja.
             </p>
           </div>
-          <Button variant="link" className="text-accent gap-2 p-0 h-auto font-semibold" asChild>
-            <Link href="/rjesenja">Pogledajte sva rješenja <ArrowRight className="w-4 h-4"/></Link>
+          <Button variant="link" className="text-black hover:text-primary gap-2 p-0 h-auto font-black uppercase text-xs tracking-widest" asChild>
+            <Link href="/rjesenja">Sva rješenja <ArrowRight className="w-4 h-4"/></Link>
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-2 border-black bg-black gap-[2px]">
           {SOLUTIONS.map((sol, idx) => (
-            <Link key={idx} href={sol.href} className="group">
-              <Card className="h-full border-border bg-white group-hover:border-accent transition-colors duration-300">
-                <CardHeader>
-                  <sol.icon className="w-8 h-8 text-primary group-hover:text-accent transition-colors" />
-                  <CardTitle className="text-lg pt-4 font-bold">{sol.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {sol.description}
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
+            <div key={idx} className="bg-white p-10 flex flex-col h-full group transition-all hover:bg-muted">
+              <div className="mb-8">
+                <sol.icon className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
+              </div>
+              <h3 className="text-xl font-black uppercase tracking-tight mb-4 leading-none">
+                {sol.title}
+              </h3>
+              <p className="text-sm text-muted-foreground font-medium leading-tight mb-8 flex-grow">
+                {sol.description}
+              </p>
+              <Link href={sol.href} className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 group-hover:text-primary transition-colors">
+                Saznaj više <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
 }
-
-import { Button } from "@/components/ui/button";

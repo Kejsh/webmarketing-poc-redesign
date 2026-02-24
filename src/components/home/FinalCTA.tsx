@@ -1,86 +1,59 @@
 
-"use client";
-
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { ArrowRight } from "lucide-react";
 
 export function FinalCTA() {
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-white border-t border-black">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
-          <div className="p-12 lg:w-1/2 bg-primary text-white flex flex-col justify-center">
-            <h2 className="text-3xl lg:text-4xl font-headline font-bold mb-6">
-              Recite što gradite
-            </h2>
-            <p className="text-white/70 mb-8 leading-relaxed">
-              Bilo da trebate stabilnu e-commerce platformu ili custom softver za interni proces, tu smo da osiguramo inženjersku razinu kvalitete.
-            </p>
-            <ul className="space-y-4 mb-8 text-sm">
-              <li className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                Termin za besplatne tech konzultacije
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                Demonstracija EasyEdit CMS platforme
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                Strateški plan razvoja i procjena troškova
-              </li>
-            </ul>
-          </div>
+        <div className="bg-primary p-12 lg:p-24 flex flex-col lg:flex-row items-center justify-between gap-12 text-white relative overflow-hidden">
+           {/* Abstract pattern placeholder */}
+           <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none skew-x-12 translate-x-1/2 bg-black" />
+           
+           <div className="relative z-10 max-w-2xl">
+              <h2 className="text-4xl lg:text-7xl font-black uppercase tracking-tighter mb-8 leading-[0.85] italic">
+                Recite nam što gradite — <span className="text-black">predložit ćemo najbolji put.</span>
+              </h2>
+              <div className="flex flex-wrap gap-4 pt-4 border-t border-white/30">
+                 <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-black" />
+                    <span className="text-[10px] font-black uppercase tracking-widest">Besplatne tech konzultacije</span>
+                 </div>
+                 <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-black" />
+                    <span className="text-[10px] font-black uppercase tracking-widest">Procjena arhitekture</span>
+                 </div>
+                 <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-black" />
+                    <span className="text-[10px] font-black uppercase tracking-widest">EasyEdit Demo</span>
+                 </div>
+              </div>
+           </div>
 
-          <div className="p-12 lg:w-1/2">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Ime i prezime</Label>
-                  <Input id="name" placeholder="Ivan Horvat" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email adresa</Label>
-                  <Input id="email" type="email" placeholder="ivan@tvrtka.hr" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="type">Tip projekta</Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Odaberite..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="web">Web Platforma</SelectItem>
-                    <SelectItem value="ecommerce">E-commerce Sustav</SelectItem>
-                    <SelectItem value="softver">Custom Softver</SelectItem>
-                    <SelectItem value="other">Ostalo</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">Ukratko o projektu</Label>
-                <Textarea id="message" placeholder="Vaša poruka..." className="min-h-[100px]" />
-              </div>
-              <div className="flex items-start space-x-2">
-                <Checkbox id="terms" />
-                <Label htmlFor="terms" className="text-xs text-muted-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Prihvaćam pravila o zaštiti podataka. Podaci će se koristiti isključivo za kontakt.
-                </Label>
-              </div>
-              <Button className="w-full h-12 text-base font-bold">Pošaljite upit</Button>
-            </form>
-          </div>
+           <div className="relative z-10 flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+              <Button size="lg" className="bg-black hover:bg-black/90 text-white rounded-none font-black uppercase tracking-widest text-xs h-16 px-12" asChild>
+                <Link href="/kontakt">Dogovori razgovor</Link>
+              </Button>
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black rounded-none font-black uppercase tracking-widest text-xs h-16 px-12 bg-transparent" asChild>
+                <Link href="/kontakt?type=brief">Pošalji brief <ArrowRight className="w-4 h-4 ml-2" /></Link>
+              </Button>
+           </div>
+        </div>
+
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-muted">
+           <div className="space-y-4">
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary">Email</p>
+              <p className="text-xl font-black text-black">info@webmarketing.hr</p>
+           </div>
+           <div className="space-y-4">
+              <p className="text-[10px] font-black uppercase tracking-widest text-secondary">Telefon</p>
+              <p className="text-xl font-black text-black">+385 1 123 4567</p>
+           </div>
+           <div className="space-y-4">
+              <p className="text-[10px] font-black uppercase tracking-widest text-accent">Lokacija</p>
+              <p className="text-xl font-black text-black">Zagreb, Hrvatska</p>
+           </div>
         </div>
       </div>
     </section>

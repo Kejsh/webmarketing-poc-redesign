@@ -9,27 +9,26 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, Menu } from "lucide-react";
+import { ChevronDown, Menu, Search, Globe } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
-const NAV_LINKS = [
+const NAV_GROUPS = [
   {
     name: "Rješenja",
-    href: "#",
     subLinks: [
       { name: "Web platforme po mjeri", href: "/rjesenja/web-platforme" },
       { name: "E-commerce sustavi", href: "/rjesenja/ecommerce" },
-      { name: "Custom softver i portali", href: "/rjesenja/custom-softver" },
+      { name: "Poslovni portali", href: "/rjesenja/poslovni-portali" },
       { name: "Integracije", href: "/rjesenja/integracije" },
     ],
   },
-  { name: "EasyEdit", href: "/easyedit" },
+  { name: "EasyEdit CMS", href: "/easyedit" },
+  { name: "Studije slučaja", href: "/work" },
   { name: "Proces", href: "/proces" },
-  { name: "Reference", href: "/work" },
-  { name: "Trust", href: "/trust" },
-  { name: "Insights", href: "/insights" },
-  { name: "O nama", href: "/o-nama" },
+  { name: "Resursi", href: "/insights" },
+  { name: "Tvrtka", href: "/o-nama" },
+  { name: "Kontakt", href: "/kontakt" },
 ];
 
 export function Navbar() {
@@ -46,63 +45,81 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-        isScrolled
-          ? "bg-white/90 backdrop-blur-md py-3 shadow-sm border-border"
-          : "bg-transparent py-5 border-transparent"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-white",
+        isScrolled ? "py-3 shadow-md" : "py-5"
       )}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center text-white font-bold text-xl group-hover:bg-accent transition-colors">
-            W
-          </div>
-          <span className="font-headline font-bold text-xl tracking-tight text-primary">
-            WEB Marketing
-          </span>
-        </Link>
+        <div className="flex items-center gap-12">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-10 h-10 bg-primary flex items-center justify-center text-white font-bold text-2xl">
+              W
+            </div>
+            <div className="flex flex-col leading-none">
+              <span className="font-headline font-black text-xl tracking-tighter text-black">
+                WEB MARKETING
+              </span>
+              <span className="text-[10px] font-bold tracking-[0.2em] text-secondary">
+                ENGINEERING FIRST
+              </span>
+            </div>
+          </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            link.subLinks ? (
-              <DropdownMenu key={link.name}>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium hover:text-accent transition-colors outline-none">
-                  {link.name} <ChevronDown className="w-4 h-4" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="min-w-[200px]">
-                  {link.subLinks.map((sub) => (
-                    <DropdownMenuItem key={sub.name} asChild>
-                      <Link href={sub.href}>{sub.name}</Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium hover:text-accent transition-colors"
-              >
-                {link.name}
-              </Link>
-            )
-          ))}
-        </nav>
-
-        <div className="hidden lg:flex items-center gap-4">
-          <Button variant="ghost" asChild className="text-sm">
-            <Link href="/easyedit">Zatražite demo</Link>
-          </Button>
-          <Button asChild className="text-sm">
-            <Link href="/kontakt">Zatražite razgovor</Link>
-          </Button>
+          {/* Desktop Nav */}
+          <nav className="hidden xl:flex items-center gap-6">
+            {NAV_GROUPS.map((link) => (
+              link.subLinks ? (
+                <DropdownMenu key={link.name}>
+                  <DropdownMenuTrigger className="flex items-center gap-1 text-[13px] font-bold uppercase tracking-wider hover:text-primary transition-colors outline-none">
+                    {link.name} <ChevronDown className="w-3 h-3" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="rounded-none border-2 border-black min-w-[240px] p-2">
+                    {link.subLinks.map((sub) => (
+                      <DropdownMenuItem key={sub.name} asChild className="rounded-none focus:bg-primary focus:text-white cursor-pointer py-2">
+                        <Link href={sub.href}>{sub.name}</Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="text-[13px] font-bold uppercase tracking-wider hover:text-primary transition-colors"
+                >
+                  {link.name}
+                </Link>
+              )
+            ))}
+          </nav>
         </div>
 
-        {/* Mobile Nav Trigger */}
-        <Button variant="ghost" size="icon" className="lg:hidden">
-          <Menu className="w-6 h-6" />
-        </Button>
+        <div className="flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4 border-r pr-4 border-muted">
+             <button className="p-2 hover:bg-muted transition-colors">
+               <Search className="w-5 h-5" />
+             </button>
+             <div className="flex items-center gap-1 text-xs font-bold uppercase">
+               <Globe className="w-3 h-3" />
+               <span className="text-primary">HR</span>
+               <span className="text-muted-foreground mx-1">/</span>
+               <span className="text-muted-foreground hover:text-black cursor-pointer">EN</span>
+             </div>
+          </div>
+          
+          <div className="hidden lg:flex items-center gap-3">
+            <Button variant="ghost" asChild className="text-xs font-bold uppercase tracking-widest border-2 border-black rounded-none hover:bg-black hover:text-white transition-all">
+              <Link href="/kontakt?type=brief">Pošalji brief</Link>
+            </Button>
+            <Button asChild className="text-xs font-bold uppercase tracking-widest bg-primary hover:bg-primary/90 rounded-none h-10 px-6">
+              <Link href="/kontakt">Dogovori Demo</Link>
+            </Button>
+          </div>
+
+          <Button variant="ghost" size="icon" className="xl:hidden border-2 border-black rounded-none">
+            <Menu className="w-6 h-6" />
+          </Button>
+        </div>
       </div>
     </header>
   );

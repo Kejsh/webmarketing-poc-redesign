@@ -1,72 +1,70 @@
 
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Check } from "lucide-react";
+import { Shield, Zap, Puzzle, LayoutTemplate, Maximize } from "lucide-react";
 
 const BENEFITS = [
-  "Zatvoreni kod / kontrola i stabilnost",
-  "30+ modula spremnih za customizaciju",
-  "Automatska SEO optimizacija (Core level)",
-  "Integracije (ERP/CRM/Payment/Logistika)",
-  "Skalabilnost i dugoročna održivost",
+  {
+    title: "Vlastita tehnologija",
+    desc: "Neovisnost o open-source ograničenjima i sigurnosnim ranjivostima.",
+    icon: Zap,
+  },
+  {
+    title: "Sigurnost i stabilnost",
+    desc: "Controlled stack i zatvoreni kod za maksimalnu zaštitu vaših podataka.",
+    icon: Shield,
+  },
+  {
+    title: "Modularnost",
+    desc: "Sustav koji se prilagođava vašem rastu kroz 30+ specijaliziranih modula.",
+    icon: Puzzle,
+  },
+  {
+    title: "Upravljanje sadržajem",
+    desc: "Intuitivno sučelje razvijeno prema potrebama modernih marketing timova.",
+    icon: LayoutTemplate,
+  },
+  {
+    title: "Enterprise integracije",
+    desc: "Nativni konektori za SAP, CRM sustave i payment gateway rješenja.",
+    icon: Maximize,
+  },
 ];
 
 export function EasyEditDifferentiator() {
-  const dashImg = PlaceHolderImages.find((img) => img.id === "easyedit-dashboard");
-
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-24 bg-black text-white overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="relative">
-            <div className="absolute -inset-4 bg-primary/5 rounded-xl -rotate-2 -z-10" />
-            <div className="relative rounded-lg shadow-2xl overflow-hidden border border-slate-200">
-              {dashImg && (
-                <Image
-                  src={dashImg.imageUrl}
-                  alt={dashImg.description}
-                  width={800}
-                  height={600}
-                  className="w-full h-auto"
-                  data-ai-hint={dashImg.imageHint}
-                />
-              )}
-            </div>
-          </div>
+        <div className="mb-20">
+          <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.8] italic">
+            EasyEdit CMS: <span className="text-primary">Tehnološka sloboda.</span>
+          </h2>
+          <p className="text-xl text-white/60 max-w-2xl font-medium">
+            Vlastita platforma za stabilne i sigurne projekte koja uklanja kompromise generičkih rješenja.
+          </p>
+        </div>
 
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold mb-6 uppercase tracking-wider">
-              Vlastita Platforma
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-px bg-white/10 border border-white/10 mb-16">
+          {BENEFITS.map((item, idx) => (
+            <div key={idx} className="bg-black p-8 group hover:bg-white transition-all">
+              <item.icon className="w-8 h-8 text-primary mb-6 group-hover:text-black transition-colors" />
+              <h3 className="text-lg font-black uppercase tracking-tight mb-3 group-hover:text-black transition-colors leading-none">
+                {item.title}
+              </h3>
+              <p className="text-xs text-white/50 font-medium group-hover:text-black/60 transition-colors leading-tight">
+                {item.desc}
+              </p>
             </div>
-            <h2 className="text-3xl lg:text-4xl font-headline font-bold mb-6 text-primary">
-              EasyEdit CMS — Sloboda koju generički sustavi ne poznaju
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              EasyEdit nije samo CMS, to je moćna platforma za razvoj složenih digitalnih proizvoda. Omogućuje nam bržu isporuku uz zadržavanje potpune kontrole nad sigurnošću i performansama.
-            </p>
+          ))}
+        </div>
 
-            <ul className="space-y-4 mb-10">
-              {BENEFITS.map((benefit, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white">
-                    <Check className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="text-foreground font-medium">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap gap-4">
-              <Button asChild>
-                <Link href="/easyedit">Saznajte više o EasyEditu</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/easyedit#demo">Zatražite demo</Link>
-              </Button>
-            </div>
-          </div>
+        <div className="flex flex-wrap gap-4">
+          <Button size="lg" className="h-12 px-10 text-xs font-black uppercase tracking-widest rounded-none bg-primary hover:bg-primary/90" asChild>
+            <Link href="/easyedit">Istraži EasyEdit</Link>
+          </Button>
+          <Button size="lg" variant="outline" className="h-12 px-10 text-xs font-black uppercase tracking-widest rounded-none border-2 border-white hover:bg-white hover:text-black" asChild>
+            <Link href="/kontakt">Zatraži Demo</Link>
+          </Button>
         </div>
       </div>
     </section>

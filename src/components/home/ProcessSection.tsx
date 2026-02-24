@@ -1,28 +1,33 @@
 
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+
 const STEPS = [
   {
     number: "01",
     title: "Discovery",
-    description: "Definiramo ciljeve, arhitekturu i roadmap. Bez pretpostavki, samo podaci.",
-    deliverable: "Product Spec & Roadmap",
+    desc: "Duboka analiza, arhitektura i roadmap bez pretpostavki.",
   },
   {
     number: "02",
-    title: "Build",
-    description: "Iterativni razvoj kroz sprinteve uz stalni QA i integracijske testove.",
-    deliverable: "Beta verzija sustava",
+    title: "Development",
+    desc: "Iterativni razvoj kroz Agile/Scrum sprinteve.",
   },
   {
     number: "03",
-    title: "Launch",
-    description: "Migracija podataka, sigurnosne provjere i optimizacija performansi.",
-    deliverable: "Live Sustav",
+    title: "QA & Security",
+    desc: "Stroge provjere kvalitete i sigurnosni auditi.",
   },
   {
     number: "04",
-    title: "Improve",
-    description: "SLA podrška, proaktivni monitoring i strateške nadogradnje.",
-    deliverable: "Maintenance & Growth",
+    title: "Launch",
+    desc: "Migracija, optimizacija i sigurno puštanje u rad.",
+  },
+  {
+    number: "05",
+    title: "Growth",
+    desc: "SLA podrška i kontinuirano strateško unapređenje.",
   },
 ];
 
@@ -30,31 +35,31 @@ export function ProcessSection() {
   return (
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-headline font-bold mb-4 text-primary">
-            Kako radimo
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Transparentnost i predvidljivost u svakoj fazi suradnje.
-          </p>
+        <div className="flex flex-col lg:flex-row justify-between items-start mb-20 gap-8">
+          <div className="max-w-xl">
+            <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-4 leading-none italic">
+              Agile proces, <span className="text-secondary">jasne isporuke.</span>
+            </h2>
+            <p className="text-lg text-muted-foreground font-medium">
+              Transparentna suradnja temeljena na iterativnom razvoju i stalnoj komunikaciji.
+            </p>
+          </div>
+          <Button variant="outline" className="border-2 border-black rounded-none font-black uppercase text-xs tracking-widest h-12 px-8" asChild>
+            <Link href="/proces">Pogledaj proces</Link>
+          </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {STEPS.map((step, idx) => (
             <div key={idx} className="relative group">
-              <div className="mb-6">
-                <span className="text-5xl font-bold text-slate-100 group-hover:text-accent/10 transition-colors">
-                  {step.number}
-                </span>
+              <div className="mb-6 flex items-end gap-2">
+                <span className="text-6xl font-black text-black leading-none">{step.number}</span>
+                <div className="h-2 w-full bg-muted group-hover:bg-secondary transition-colors mb-2" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-primary">{step.title}</h3>
-              <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                {step.description}
+              <h3 className="text-lg font-black uppercase tracking-tight mb-3 leading-none">{step.title}</h3>
+              <p className="text-xs text-muted-foreground font-medium leading-tight">
+                {step.desc}
               </p>
-              <div className="pt-4 border-t border-slate-100">
-                <span className="text-[10px] uppercase font-bold tracking-widest text-accent">Deliverable:</span>
-                <p className="text-sm font-medium mt-1">{step.deliverable}</p>
-              </div>
             </div>
           ))}
         </div>
