@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -50,6 +51,7 @@ const NAV_GROUPS = [
       { name: "Sigurnost i Trust", href: "/easyedit/sigurnost" },
     ]
   },
+  { name: "Klijenti", href: "/klijenti" },
   { name: "Studije slučaja", href: "/work" },
   { name: "Proces", href: "/proces" },
   { 
