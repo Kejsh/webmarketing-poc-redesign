@@ -26,6 +26,7 @@ import { ChevronDown, Menu, Search, Globe, X, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 const NAV_GROUPS = [
   {
@@ -76,6 +77,9 @@ const NAV_GROUPS = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchDialogOpen, setSearchDialogOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,6 +88,14 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    setSearchDialogOpen(false);
+    router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+    setSearchQuery("");
+  };
 
   return (
     <header
@@ -139,7 +151,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-4">
           <div className="hidden lg:flex items-center gap-4 border-r pr-4 border-muted">
-             <Dialog>
+             <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
                <DialogTrigger asChild>
                  <button className="p-2 hover:bg-muted transition-colors">
                    <Search className="w-5 h-5" />
@@ -150,17 +162,27 @@ export function Navbar() {
                    <DialogTitle className="font-black uppercase tracking-tight italic">Pretražite Knowledge Base</DialogTitle>
                  </DialogHeader>
                  <div className="py-8">
-                   <div className="relative">
+                   <form onSubmit={handleSearchSubmit} className="relative">
                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                      <Input 
                        placeholder="Unesite pojam (npr. ERP integracija, SEO, modula...)" 
-                       className="h-16 pl-12 rounded-none border-2 border-black text-lg"
+                       className="h-16 pl-12 rounded-none border-2 border-black text-lg focus:ring-primary"
+                       value={searchQuery}
+                       onChange={(e) => setSearchQuery(e.target.value)}
+                       autoFocus
                      />
-                   </div>
-                   <div className="mt-6 flex flex-wrap gap-2">
+                     <Button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 bg-black text-white rounded-none font-black uppercase text-[10px] px-4">Traži</Button>
+                   </form>
+                   <div className="mt-6 flex flex-wrap gap-4">
                      <span className="text-[10px] font-black uppercase text-black/40">Često traženo:</span>
                      {["SAP", "EasyEdit", "Sigurnost", "E-commerce"].map(t => (
-                       <button key={t} className="text-[10px] font-bold uppercase hover:text-primary transition-colors">{t}</button>
+                       <button 
+                        key={t} 
+                        onClick={() => { setSearchQuery(t); }}
+                        className="text-[10px] font-bold uppercase hover:text-primary transition-colors"
+                       >
+                         {t}
+                       </button>
                      ))}
                    </div>
                  </div>
