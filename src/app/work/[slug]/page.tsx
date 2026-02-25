@@ -10,7 +10,14 @@ import {
   Zap, 
   ShieldCheck, 
   Layers,
-  ArrowLeft
+  ArrowLeft,
+  Activity,
+  MapPin,
+  FileText,
+  Share2,
+  Search,
+  ShoppingCart,
+  Workflow
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,19 +56,107 @@ const CASE_STUDIES_DATA: Record<string, any> = {
     services: ["Poslovni Portal", "Custom Softver", "UI/UX Inženjering"],
     outcome: "1M+ mjesečnih sesija uz 99.9% uptime",
     imgId: "case-study-2",
-    challenge: "Fragmentirani sustavi za klijente otežavali su prodaju novih polica i produženje postojećih. Korisničko iskustvo bilo je opterećeno tehničkim dugom i sporim učitavanjem.",
+    challenge: "Fragmentirani sustavi za klijente otežavali su prodaju novih polica i produženje postojećih. Korisničko iskustvo bilo je opterećeno tehničkim dugom i sporim učitavanjem stranica.",
     solution: "Razvijen je centralizirani self-service portal baziran na EasyEdit Business Core-u. Korisnici sada mogu upravljati svim policama, prijaviti štetu i izvršiti plaćanja unutar 3 klika.",
     architecture: [
       { title: "Micro-service Ready", desc: "Modularna arhitektura koja se lako povezuje s vanjskim servisima za procjenu rizika.", icon: Layers },
-      { title: "High-Load Handling", desc: "Optimizirano za opsluživanje preko 10.000 konkurentnih korisnika.", icon: Zap },
-      { title: "Advanced Audit", desc: "Potpuni trag svih promjena na policama s visokom razinom enkripcije.", icon: ShieldCheck }
+      { title: "High-Load Handling", desc: "Optimizirano za opsluživanje preko 10.000 konkurentnih korisnika istovremeno.", icon: Zap },
+      { title: "Advanced Audit", desc: "Potpuni trag svih promjena na policama s visokom razinom enkripcije podataka.", icon: ShieldCheck }
     ],
     results: [
-      { label: "Uptime", value: "99.99%" },
+      { label: "Uptime sustava", value: "99.99%" },
       { label: "Online plaćanja", value: "+60%" },
       { label: "Support ticketi", value: "-30%" }
     ],
     modules: ["EasyEdit Core CMS", "CRM Connector", "Payment Gateway Sync", "Document Vault"]
+  },
+  "logistics-iot": {
+    title: "IoT Supply Chain Dashboard",
+    client: "LogiTrans Adriatic",
+    industry: "Logistika",
+    year: "2023",
+    services: ["Sistemska Integracija", "Custom Dashboard", "Real-time Data"],
+    outcome: "Praćenje u realnom vremenu na 500+ lokacija",
+    imgId: "case-study-3",
+    challenge: "Nedostatak vidljivosti nad kretanjem robe u realnom vremenu uzrokovao je zastoje i povećane troškove. Podaci su stizali sa zakašnjenjem od 24 sata iz različitih senzorskih mreža.",
+    solution: "Implementirali smo IoT middleware koji objedinjuje podatke sa senzora i prezentira ih kroz interaktivni dashboard na EasyEdit platformi koristeći WebSocket tehnologiju.",
+    architecture: [
+      { title: "Stream Processing", desc: "Obrada tisuća senzorskih podataka u sekundi bez latencije.", icon: Activity },
+      { title: "Geo-fencing Engine", desc: "Automatsko obavještavanje o ulasku/izlasku robe iz definiranih zona.", icon: MapPin },
+      { title: "Resilient API", desc: "Fallback mehanizmi u slučaju gubitka konekcije na terenu.", icon: Zap }
+    ],
+    results: [
+      { label: "Vidljivost robe", value: "100%" },
+      { label: "Operativni troškovi", value: "-20%" },
+      { label: "Vrijeme reakcije", value: "Real-time" }
+    ],
+    modules: ["Geolocation & Maps", "Advanced Analytics", "API Gateway", "Workflow Management"]
+  },
+  "retail-intranet": {
+    title: "Enterprise Intranet & Document Vault",
+    client: "RetailMax Group",
+    industry: "Retail",
+    year: "2024",
+    services: ["Interni Portal", "Document Management", "HR Automacija"],
+    outcome: "Digitalizirana komunikacija za 5000+ zaposlenika",
+    imgId: "case-study-1",
+    challenge: "Interna komunikacija i distribucija osjetljivih dokumenata (plaće, ugovori) odvijala se putem papira ili nesigurnih e-mail kanala, što je bio veliki sigurnosni rizik.",
+    solution: "Razvijen je oklopljeni Intranet portal s 'Document Vault' modulom koji svakom zaposleniku nudi siguran digitalni pretinac uz granularna prava pristupa.",
+    architecture: [
+      { title: "RBAC Security", desc: "Role-based access control usklađen s hijerarhijom tvrtke.", icon: ShieldCheck },
+      { title: "Encrypted Vault", desc: "Enkripcija dokumenata u mirovanju koristeći AES-256 standard.", icon: FileText },
+      { title: "Global Search", desc: "Brzo pretraživanje tisuća internih dokumenata unutar 200ms.", icon: Search }
+    ],
+    results: [
+      { label: "Gubitak dokumenata", value: "0%" },
+      { label: "Brzina HR procesa", value: "+50%" },
+      { label: "Paperless score", value: "90%" }
+    ],
+    modules: ["Document Vault", "Membership Management", "Advanced SEO Manager", "Ticketing & Support"]
+  },
+  "custom-web-shop": {
+    title: "Custom Web Shop za luksuzne brendove",
+    client: "LuxAdria Retail",
+    industry: "Retail",
+    year: "2023",
+    services: ["High-end E-commerce", "UX Engineering", "Performance Optimization"],
+    outcome: "Povećanje konverzije za 25% kroz personalizirani UX",
+    imgId: "case-study-2",
+    challenge: "Postojeće rješenje na open-source platformi bilo je sporo (LCP > 4s) i nije moglo podržati kompleksnu logiku personalizacije proizvoda po narudžbi.",
+    solution: "Izgrađen je custom shop na EasyEdit platformi s fokusom na 'Performance-first' arhitekturu i native modul za personalizaciju sučelja prema ponašanju korisnika.",
+    architecture: [
+      { title: "Core Web Vitals 95+", desc: "Ekstremna optimizacija koda za maksimalnu brzinu učitavanja.", icon: Zap },
+      { title: "Custom Checkout", desc: "Checkout proces u jednom koraku prilagođen luksuznoj niši.", icon: ShoppingCart },
+      { title: "Personalization AI", desc: "Dinamički prikaz proizvoda temeljen na prethodnim interakcijama.", icon: Activity }
+    ],
+    results: [
+      { label: "Konverzija", value: "+25%" },
+      { label: "Load time", value: "< 1s" },
+      { label: "Bounce rate", value: "-40%" }
+    ],
+    modules: ["Web Shop Engine", "Personalization Engine", "A/B Testing Tool", "Discounts & Coupons"]
+  },
+  "erp-bridge": {
+    title: "Cloud Bridge za ERP integracije",
+    client: "TechFlow Solutions",
+    industry: "Tehnologija",
+    year: "2024",
+    services: ["Middleware Razvoj", "Sistemska Arhitektura", "API Automatizacija"],
+    outcome: "Eliminiran ručni unos podataka za 3 interna tima",
+    imgId: "case-study-3",
+    challenge: "Tri različita odjela unosila su iste podatke u SAP, HubSpot i internu bazu podataka, što je trošilo 400+ radnih sati mjesečno uz veliku stopu ljudskih pogrešaka.",
+    solution: "Razvijen je 'Integration Bridge' koji služi kao middleware. On automatski sinkronizira podatke, transformira formate i rješava konflikte bez ljudske intervencije.",
+    architecture: [
+      { title: "Data Transformer", desc: "Automatsko mapiranje polja između XML, JSON i SOAP formata.", icon: Share2 },
+      { title: "Error Handler", desc: "Inteligentni sustav za retry i notifikacije kod ispada vanjskih API-ja.", icon: Workflow },
+      { title: "Batch Processing", desc: "Obrada velikih količina podataka u pozadini bez utjecaja na UI.", icon: Layers }
+    ],
+    results: [
+      { label: "Ušteda radnih sati", value: "400h/mj" },
+      { label: "Stopa pogreške", value: "0%" },
+      { label: "Sinkronizacija", value: "Real-time" }
+    ],
+    modules: ["ERP Bridge", "CRM Connector", "API Gateway", "Workflow Management"]
   }
 };
 
@@ -70,21 +165,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const data = CASE_STUDIES_DATA[slug];
 
   if (!data) {
-    // For now, if not in mock data, show generic or notFound
-    if (slug !== "logistics-iot" && slug !== "retail-intranet" && slug !== "custom-web-shop" && slug !== "erp-bridge") {
-      notFound();
-    }
-    // Fallback for missing detail data in MVP
-    return (
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow pt-48 container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-black uppercase tracking-tighter italic">Detaljni podaci za {slug} su u pripremi.</h1>
-          <p className="mt-8"><Link href="/work" className="text-primary hover:underline flex items-center justify-center gap-2"><ArrowLeft className="w-4 h-4"/> Povratak na portfolio</Link></p>
-        </main>
-        <Footer />
-      </div>
-    );
+    notFound();
   }
 
   const heroImg = PlaceHolderImages.find(i => i.id === data.imgId);
@@ -141,6 +222,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 alt={data.title} 
                 fill 
                 className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 opacity-90"
+                priority
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
