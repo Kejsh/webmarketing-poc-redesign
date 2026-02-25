@@ -17,7 +17,8 @@ const NAV_GROUPS = [
     name: "Rješenja",
     href: "/rjesenja",
     subLinks: [
-      { name: "Web platforme po mjeri", href: "/rjesenja/web-platforme" },
+      { name: "Sva rješenja", href: "/rjesenja" },
+      { name: "Web platforme", href: "/rjesenja/web-platforme" },
       { name: "E-commerce sustavi", href: "/rjesenja/ecommerce" },
       { name: "Poslovni portali", href: "/rjesenja/poslovni-portali" },
       { name: "Integracije sustava", href: "/rjesenja/integracije" },
