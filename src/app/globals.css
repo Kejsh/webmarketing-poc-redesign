@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -26,8 +25,8 @@
     --secondary: 179 100% 33%;
     --secondary-foreground: 0 0% 100%;
     
-    --muted: 0 0% 90%;
-    --muted-foreground: 0 0% 20%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
     
     --accent: 313 69% 40%;
     --accent-foreground: 0 0% 100%;
@@ -35,7 +34,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 0 0% 90%;
+    --border: 0 0% 0%; /* Black borders for engineering look */
     --input: 0 0% 90%;
     --ring: 196 100% 47%;
     
@@ -46,6 +45,9 @@
 @layer base {
   * {
     @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground font-body antialiased;
