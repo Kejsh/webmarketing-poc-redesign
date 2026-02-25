@@ -8,6 +8,7 @@ import { ArrowRight, Quote, Filter } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { cn } from "@/lib/utils";
 
 const CATEGORIES = ["Svi", "Web Platforme", "E-commerce", "Poslovni Portali", "Integracije"];
 
