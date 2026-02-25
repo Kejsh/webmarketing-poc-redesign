@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Layout, ShoppingCart, Settings, Share2, ShieldCheck, Zap, Database } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const CORE_SOLUTIONS = [
   {
@@ -148,7 +149,6 @@ export default function SolutionsHub() {
                 </div>
               </div>
               <div className="bg-black aspect-square lg:aspect-auto lg:h-[600px] relative overflow-hidden flex items-center justify-center">
-                 {/* Abstract engineering pattern placeholder */}
                  <div className="absolute inset-0 opacity-20 pointer-events-none">
                     <div className="w-full h-full border-[20px] border-white/10 skew-x-12 translate-x-1/2" />
                     <div className="w-full h-full border-[40px] border-white/5 -skew-x-12 -translate-x-1/4" />
