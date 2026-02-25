@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -36,9 +35,9 @@ export function Footer() {
             <ul className="space-y-4 text-white/70 text-sm">
               <li><Link href="/rjesenja" className="hover:text-white transition-colors">Rješenja</Link></li>
               <li><Link href="/easyedit" className="hover:text-white transition-colors">EasyEdit CMS</Link></li>
-              <li><Link href="/proces" className="hover:text-white transition-colors">Naš proces</Link></li>
-              <li><Link href="/work" className="hover:text-white transition-colors">Reference</Link></li>
-              <li><Link href="/trust" className="hover:text-white transition-colors">Sigurnost i Trust</Link></li>
+              <li><Link href="/work" className="hover:text-white transition-colors">Studije slučaja</Link></li>
+              <li><Link href="/podrska" className="hover:text-white transition-colors">Podrška i SLA</Link></li>
+              <li><Link href="/faq" className="hover:text-white transition-colors">Česta pitanja (FAQ)</Link></li>
             </ul>
           </div>
 
