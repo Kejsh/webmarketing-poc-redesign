@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Navbar } from "@/components/layout/Navbar";
@@ -17,6 +16,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 const RESOURCES = [
   {
