@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -11,25 +10,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, Loader2, Send, Calendar, Sparkles, ArrowRight, ArrowLeft } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { CheckCircle2, Loader2, Send, Calendar, ArrowRight, ArrowLeft } from "lucide-react";
 
 export function ContactFormDualPath() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [step, setStep] = useState(1);
 
-  const handleDemoSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    // Simulacija slanja
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
     }, 1500);
   };
 
-  const handleNextStep = () => setStep(prev => prev + 1);
-  const handlePrevStep = () => setStep(prev => prev - 1);
+  const handleNextStep = () => setStep(prev => Math.min(prev + 1, 5));
+  const handlePrevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
   if (success) {
     return (
@@ -39,13 +38,13 @@ export function ContactFormDualPath() {
         </div>
         <h2 className="text-4xl font-black uppercase tracking-tighter italic">Zahtjev zaprimljen.</h2>
         <p className="text-muted-foreground text-lg font-medium max-w-md mx-auto">
-          Hvala vam. Vaš upit je u sustavu. Naš tim će vas kontaktirati u najkraćem mogućem roku radi dogovora termina.
+          Vaš upit je uspješno poslan. Naš tim inženjera će analizirati podatke i kontaktirati vas u najkraćem roku.
         </p>
         <Button 
-          className="rounded-none font-black uppercase tracking-widest text-xs h-12"
+          className="rounded-none font-black uppercase tracking-widest text-xs h-12 px-10"
           onClick={() => { setSuccess(false); setStep(1); }}
         >
-          Povratak na kontakt
+          Pošalji novi upit
         </Button>
       </div>
     );
@@ -70,22 +69,24 @@ export function ContactFormDualPath() {
         </TabsList>
       </div>
 
-      {/* Path 1: Demo / Razgovor */}
+      {/* Path 1: Brzi Demo / Razgovor */}
       <TabsContent value="demo">
         <Card className="rounded-none border-2 border-black bg-white max-w-2xl mx-auto shadow-[20px_20px_0px_0px_rgba(0,0,0,0.05)]">
           <CardContent className="p-10 lg:p-16">
             <div className="mb-10 text-center">
-              <h3 className="text-3xl font-black uppercase tracking-tighter italic mb-4">Brzi kontakt</h3>
-              <p className="text-sm text-muted-foreground font-medium">Ostavite osnovne podatke i javit ćemo vam se za inicijalni 15-minutni razgovor ili demo sustava.</p>
+              <h3 className="text-3xl font-black uppercase tracking-tighter italic mb-4">Zakažite termin</h3>
+              <p className="text-sm text-muted-foreground font-medium leading-relaxed">
+                Ostavite svoje podatke za brzi 15-minutni uvodni razgovor ili prezentaciju EasyEdit CMS-a.
+              </p>
             </div>
-            <form onSubmit={handleDemoSubmit} className="space-y-6">
+            <form onSubmit={handleFormSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label className="text-[10px] font-black uppercase tracking-widest">Ime i Prezime</Label>
                   <Input className="rounded-none border-2 border-black h-12" placeholder="Ivan Horvat" required />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[10px] font-black uppercase tracking-widest">Email adresa</Label>
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Poslovni Email</Label>
                   <Input type="email" className="rounded-none border-2 border-black h-12" placeholder="ivan@tvrtka.hr" required />
                 </div>
               </div>
@@ -94,8 +95,18 @@ export function ContactFormDualPath() {
                 <Input className="rounded-none border-2 border-black h-12" placeholder="Naziv vaše organizacije" required />
               </div>
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest">Vaša poruka (opcionalno)</Label>
-                <Textarea className="rounded-none border-2 border-black min-h-[100px]" placeholder="Što vas točno zanima?" />
+                <Label className="text-[10px] font-black uppercase tracking-widest">Što vas najviše zanima?</Label>
+                <Select>
+                  <SelectTrigger className="rounded-none border-2 border-black h-12">
+                    <SelectValue placeholder="Odaberite temu" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-none border-2 border-black">
+                    <SelectItem value="demo">Generalni Demo Sustava</SelectItem>
+                    <SelectItem value="ecom">E-commerce Specifičnosti</SelectItem>
+                    <SelectItem value="integration">Mogućnosti Integracije</SelectItem>
+                    <SelectItem value="security">Sigurnost i Hosting</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <Button type="submit" className="w-full h-16 bg-black hover:bg-black/90 text-white rounded-none font-black uppercase tracking-widest text-xs">
                 {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Calendar className="w-4 h-4 mr-2 text-primary" />}
@@ -106,7 +117,7 @@ export function ContactFormDualPath() {
         </Card>
       </TabsContent>
 
-      {/* Path 2: Structured Multi-step Brief */}
+      {/* Path 2: Strukturirani Multi-step Brief */}
       <TabsContent value="brief">
         <Card className="rounded-none border-2 border-black bg-white max-w-4xl mx-auto shadow-[20px_20px_0px_0px_rgba(0,174,239,0.1)] overflow-hidden">
           <div className="bg-primary h-2 w-full transition-all duration-500" style={{ width: `${(step / 5) * 100}%` }} />
@@ -116,15 +127,15 @@ export function ContactFormDualPath() {
             {step === 1 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 01/05</span>
-                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Koji tip rješenja trebate?</h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 01/05 — TIP RJEŠENJA</span>
+                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Koji tip platforme projektiramo?</h3>
                 </div>
                 <RadioGroup defaultValue="web" className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
                     { id: "web", label: "Custom Web Platforma", desc: "Složeni web sustavi i portali" },
-                    { id: "ecom", label: "E-commerce Sustav", desc: "Web trgovine i prodajni motori" },
-                    { id: "portal", label: "Poslovni Portal", desc: "Interni sustavi i CRM/B2B zone" },
-                    { id: "int", label: "Sistemske Integracije", desc: "Povezivanje postojećih sustava" }
+                    { id: "ecom", label: "E-commerce Sustav", desc: "B2B/B2C trgovine i prodaja" },
+                    { id: "portal", label: "Poslovni Portal", desc: "CRM, B2B zone, interni alati" },
+                    { id: "int", label: "Sistemske Integracije", desc: "Povezivanje ERP/CRM sustava" }
                   ].map((item) => (
                     <div key={item.id} className="relative">
                       <RadioGroupItem value={item.id} id={item.id} className="peer sr-only" />
@@ -150,17 +161,17 @@ export function ContactFormDualPath() {
             {step === 2 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 02/05</span>
-                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Potrebne integracije?</h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 02/05 — INTEGRACIJE</span>
+                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Koje sustave trebamo povezati?</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[
-                    { id: "erp", label: "ERP sustavi (SAP, Navision...)" },
-                    { id: "crm", label: "CRM (HubSpot, Salesforce...)" },
-                    { id: "pay", label: "Payment Gateway (Stripe, Corvus...)" },
+                    { id: "erp", label: "ERP (SAP, Navision, Pantheon...)" },
+                    { id: "crm", label: "CRM (Salesforce, HubSpot...)" },
+                    { id: "pay", label: "Payment (Stripe, Corvus...)" },
                     { id: "log", label: "Logistika (GLS, DPD...)" },
-                    { id: "pim", label: "PIM / DAM sustavi" },
-                    { id: "other", label: "Ostalo (Custom API)" }
+                    { id: "pim", label: "PIM / Digital Assets" },
+                    { id: "other", label: "Custom API / Drugo" }
                   ].map((item) => (
                     <div key={item.id} className="flex items-center space-x-3 p-4 border border-black/5 hover:border-black/20 transition-colors">
                       <Checkbox id={item.id} className="rounded-none border-2 border-black" />
@@ -183,17 +194,17 @@ export function ContactFormDualPath() {
             {step === 3 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 03/05</span>
-                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Što želite postići?</h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 03/05 — CILJEVI</span>
+                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Što su ključni prioriteti?</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[
-                    { id: "sales", label: "Povećanje prodaje / konverzija" },
-                    { id: "process", label: "Digitalizacija internih procesa" },
-                    { id: "security", label: "Veća sigurnost i kontrola podataka" },
-                    { id: "scaling", label: "Skaliranje na nova tržišta" },
-                    { id: "ux", label: "Bolje korisničko iskustvo (UX)" },
-                    { id: "tech", label: "Zamjena zastarjele tehnologije" }
+                    { id: "sales", label: "Povećanje prodaje" },
+                    { id: "process", label: "Optimizacija procesa" },
+                    { id: "security", label: "Sigurnost podataka" },
+                    { id: "scaling", label: "Skaliranje sustava" },
+                    { id: "ux", label: "Korisničko iskustvo" },
+                    { id: "tech", label: "Tehnička stabilnost" }
                   ].map((item) => (
                     <div key={item.id} className="flex items-center space-x-3 p-4 border border-black/5 hover:border-black/20 transition-colors">
                       <Checkbox id={item.id} className="rounded-none border-2 border-black" />
@@ -216,26 +227,26 @@ export function ContactFormDualPath() {
             {step === 4 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 04/05</span>
-                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Okvirni plan i resursi?</h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 04/05 — RESURSI</span>
+                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Planirani rokovi i budžet?</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4">
-                    <Label className="text-[10px] font-black uppercase tracking-widest text-black/40">Planirani Rok</Label>
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-black/40">Okvirni Rok</Label>
                     <Select>
                       <SelectTrigger className="rounded-none border-2 border-black h-14">
-                        <SelectValue placeholder="Odaberite vremenski okvir" />
+                        <SelectValue placeholder="Odaberite vrijeme" />
                       </SelectTrigger>
                       <SelectContent className="rounded-none border-2 border-black">
                         <SelectItem value="3m">Unutar 3 mjeseca</SelectItem>
                         <SelectItem value="6m">3 - 6 mjeseci</SelectItem>
                         <SelectItem value="12m">6 - 12 mjeseci</SelectItem>
-                        <SelectItem value="flex">Nije fiksno</SelectItem>
+                        <SelectItem value="flex">Fleksibilno</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-4">
-                    <Label className="text-[10px] font-black uppercase tracking-widest text-black/40">Okvirni Budžet (Opcije)</Label>
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-black/40">Procjena investicije</Label>
                     <Select>
                       <SelectTrigger className="rounded-none border-2 border-black h-14">
                         <SelectValue placeholder="Odaberite raspon" />
@@ -244,7 +255,7 @@ export function ContactFormDualPath() {
                         <SelectItem value="10k">€10k - €30k</SelectItem>
                         <SelectItem value="50k">€30k - €70k</SelectItem>
                         <SelectItem value="100k">€70k+</SelectItem>
-                        <SelectItem value="und">Nepoznato / Na upit</SelectItem>
+                        <SelectItem value="na">Na upit / Neodređeno</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -260,12 +271,12 @@ export function ContactFormDualPath() {
               </div>
             )}
 
-            {/* Step 5: Kontakt podaci */}
+            {/* Step 5: Kontakt */}
             {step === 5 && (
               <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 05/05</span>
-                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Završni podaci</h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">KORAK 05/05 — KONTAKT</span>
+                  <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">Tko je nositelj projekta?</h3>
                 </div>
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -275,30 +286,23 @@ export function ContactFormDualPath() {
                     </div>
                     <div className="space-y-2">
                       <Label className="text-[10px] font-black uppercase tracking-widest">Poslovni Email</Label>
-                      <Input type="email" className="rounded-none border-2 border-black h-14" placeholder="ime.prezime@tvrtka.hr" required />
+                      <Input type="email" className="rounded-none border-2 border-black h-14" placeholder="email@tvrtka.hr" required />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-widest">Naziv Tvrtke</Label>
-                    <Input className="rounded-none border-2 border-black h-14" placeholder="Vaša organizacija" required />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-widest">Kratka napomena za inženjere</Label>
-                    <Textarea className="rounded-none border-2 border-black min-h-[100px]" placeholder="Dodatne informacije o projektu..." />
+                    <Label className="text-[10px] font-black uppercase tracking-widest">Opis projekta (Slobodni unos)</Label>
+                    <Textarea className="rounded-none border-2 border-black min-h-[120px]" placeholder="Ukratko o vašim specifičnim zahtjevima..." />
                   </div>
                 </div>
                 <div className="pt-8 border-t border-black/5 flex justify-between items-center">
                   <Button variant="ghost" onClick={handlePrevStep} className="h-14 px-10 rounded-none font-black uppercase tracking-widest text-xs">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Nazad
                   </Button>
-                  <Button onClick={handleDemoSubmit} className="h-16 px-12 bg-primary hover:bg-primary/90 text-white rounded-none font-black uppercase tracking-widest text-xs">
+                  <Button onClick={handleFormSubmit} className="h-16 px-12 bg-primary hover:bg-primary/90 text-white rounded-none font-black uppercase tracking-widest text-xs">
                     {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Send className="w-4 h-4 mr-2" />}
                     Pošalji Brief <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
-                <p className="text-[8px] font-bold text-black/30 uppercase text-center tracking-[0.2em] pt-4">
-                  Vaši podaci su zaštićeni sukladno našim pravilima o privatnosti.
-                </p>
               </div>
             )}
 
