@@ -10,10 +10,10 @@ import {
   Settings, 
   ArrowRight,
   Headset,
-  Wrench,
   CheckCircle2,
   Lock,
-  Cpu
+  Cpu,
+  RefreshCw
 } from "lucide-react";
 import Link from "next/link";
 

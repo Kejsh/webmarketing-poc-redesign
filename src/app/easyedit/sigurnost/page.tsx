@@ -7,13 +7,13 @@ import {
   EyeOff, 
   History, 
   Server, 
-  FileShield, 
   CheckCircle2, 
   AlertTriangle,
   ArrowRight,
   ShieldAlert,
   Fingerprint,
-  HardDrive
+  HardDrive,
+  FileLock
 } from "lucide-react";
 import Link from "next/link";
 
@@ -36,7 +36,7 @@ const SECURITY_LAYERS = [
   {
     title: "ISO 27001 Readiness",
     desc: "Arhitektura sustava i razvojni procesi usklađeni su s najvišim standardima informacijske sigurnosti.",
-    icon: FileShield
+    icon: FileLock
   }
 ];
 
