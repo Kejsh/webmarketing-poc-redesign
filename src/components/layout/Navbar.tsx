@@ -61,6 +61,7 @@ const NAV_GROUPS = [
       { name: "Blog & Insights", href: "/insights" },
       { name: "Vodiči i Whitepapers", href: "/resursi/vodici" },
       { name: "Česta pitanja (FAQ)", href: "/faq" },
+      { name: "Trust Center", href: "/trust" },
     ]
   },
   { 
