@@ -1,9 +1,17 @@
+
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Mail, Phone, MapPin, Linkedin, Clock } from "lucide-react";
 
 export function Footer() {
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className="bg-primary text-white pt-20 pb-10">
       <div className="container mx-auto px-4">
@@ -74,7 +82,7 @@ export function Footer() {
         </div>
 
         <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <p>© {new Date().getFullYear()} WEB Marketing d.o.o. Sva prava pridržana.</p>
+          <p>© {currentYear || '...'} WEB Marketing d.o.o. Sva prava pridržana.</p>
           <div className="flex gap-6">
             <Link href="/privatnost" className="hover:text-white">Pravila privatnosti</Link>
             <Link href="/uvjeti" className="hover:text-white">Uvjeti korištenja</Link>
