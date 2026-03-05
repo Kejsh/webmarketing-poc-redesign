@@ -27,23 +27,12 @@
 
 ## Struktura radnih mapa (`.llm`)
 - `.llm/input-knowledge/` postojeći ulazni materijali i razgovori.
-- `.llm/brand/` brand smjernice (ton, poruke, vizualna pravila).
-- `.llm/briefs/` kratki briefovi po tasku/stranici.
-- `.llm/page-specs/` specifikacije po pojedinoj stranici.
-- `.llm/content-plan/` plan sadržaja i informacijska arhitektura.
-- `.llm/tasks/` task breakdown i status zapisi.
-- `.llm/reviews/` bilješke nakon reviewa i QA provjere.
-- `.llm/output-copy/` finalne copy verzije spremne za implementaciju.
-- `.llm/output-seo/` SEO nacrti (meta, schema, keyword mapping).
-- `.llm/research/` istraživanje konkurencije i tržišta.
-- `.llm/prompts/` reusable promptovi za ponovljive zadatke.
-- `.llm/assets/` reference za assete (opis i plan upotrebe).
+- `.llm/skills/` standardni LLM skillovi za rad u Codexu.
 
 ## Operativni workflow
 1. Učitaj kontekst iz `docs/blueprint.md` i `.llm/input-knowledge/`.
-2. Definiraj mini-brief u `.llm/briefs/` prije većih izmjena.
+2. Ako je potrebno, koristi ili proširi postojeće skillove u `.llm/skills/`.
 3. Napravi implementaciju u malim koracima.
-4. Zapiši rezultat i otvorene točke u `.llm/reviews/`.
 
 ## Napomena
 - Ako zahtjev korisnika kolidira s ovim pravilima, prioritet ima eksplicitni korisnički zahtjev.
