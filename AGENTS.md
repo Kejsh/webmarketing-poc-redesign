@@ -14,10 +14,12 @@
 - Prije izmjena prvo pročitaj postojeći kontekst:
   - `docs/blueprint.md`
   - `.llm/input-knowledge/*`
+- Skillove iz `.llm/skills/` i dostupne sistemske/superpowers skillove uvijek poštuj i primjenjuj kada su relevantni za zadatak.
 - Sve veće odluke napravi kao male, provjerljive korake (mali diffovi, jasan razlog promjene).
 - Ne mijenjaj postojeći ton brenda bez razloga; predlaži promjene kroz konkretan diff.
 - Zadrži strukturu URL-ova i nazivlje sekcija konzistentno na hrvatskom.
 - Kod i sadržaj moraju biti spremni za produkciju: bez placeholder teksta tipa "Lorem ipsum".
+- E2E testovi se po defaultu pokreću headless; `headed` mod koristiti samo kada je potreban vizualni debug.
 
 ## Definicija dovršenosti (Definition of Done)
 - Stranica je responzivna i stabilna na mobilnom i desktop prikazu.
