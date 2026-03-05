@@ -1,5 +1,3 @@
-"use client";
-
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -16,24 +14,42 @@ import {
   Cpu, 
   Lock,
   Workflow,
-  ArrowRight
+  ArrowRight,
+  GraduationCap,
+  Zap
 } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useState } from "react";
+import { notFound } from "next/navigation";
 
-export default function JobDetailPage() {
-  const params = useParams();
-  const slug = params.slug;
-  const [submitted, setSubmitted] = useState(false);
+const JOB_SLUGS = [
+  "senior-nextjs-engineer",
+  "fullstack-developer-core",
+  "qa-security-engineer",
+  "product-manager-ecommerce",
+  "frontend-developer-react",
+  "devops-cloud-engineer",
+];
+
+export function generateStaticParams() {
+  return JOB_SLUGS.map((slug) => ({ slug }));
+}
+
+export const dynamicParams = false;
+
+export default async function JobDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  if (!JOB_SLUGS.includes(slug)) {
+    notFound();
+  }
 
   // Mock data mapping based on slug - in reality this would fetch from a database
-  const jobTitle = slug?.toString().split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') || "Radna pozicija";
-
-  const handleApply = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+  const jobTitle =
+    slug.toString().split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ") ||
+    "Radna pozicija";
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -166,48 +182,31 @@ export default function JobDetailPage() {
               <div className="bg-black text-white p-8 lg:p-12 border-2 border-black shadow-[20px_20px_0px_0px_rgba(0,174,239,0.1)] relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl" />
                 
-                {submitted ? (
-                  <div className="text-center py-12 space-y-8 animate-in zoom-in duration-500">
-                    <div className="w-20 h-20 bg-primary mx-auto flex items-center justify-center">
-                      <CheckCircle2 className="w-10 h-10 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-3xl font-black uppercase tracking-tight italic mb-2">Prijava primljena!</h3>
-                      <p className="text-white/60">Hvala vam na interesu. Javit ćemo vam se čim pregledamo vašu prijavu.</p>
-                    </div>
-                    <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black rounded-none" onClick={() => setSubmitted(false)}>
-                      Zatvori
-                    </Button>
+                <h3 className="text-2xl font-black uppercase tracking-tight italic mb-8">Prijavi se za poziciju</h3>
+                <form className="space-y-6" action="#">
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Ime i Prezime</Label>
+                    <Input className="bg-white/5 border-white/20 rounded-none h-14 text-white" placeholder="Npr. Ivan Horvat" required />
                   </div>
-                ) : (
-                  <>
-                    <h3 className="text-2xl font-black uppercase tracking-tight italic mb-8">Prijavi se za poziciju</h3>
-                    <form className="space-y-6" onSubmit={handleApply}>
-                      <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Ime i Prezime</Label>
-                        <Input className="bg-white/5 border-white/20 rounded-none h-14 text-white" placeholder="Npr. Ivan Horvat" required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Email adresa</Label>
-                        <Input type="email" className="bg-white/5 border-white/20 rounded-none h-14 text-white" placeholder="ivan@tvrtka.hr" required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Link na CV / LinkedIn / Portfolio</Label>
-                        <Input className="bg-white/5 border-white/20 rounded-none h-14 text-white" placeholder="https://..." required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Kratka poruka (Opcionalno)</Label>
-                        <Textarea className="bg-white/5 border-white/20 rounded-none min-h-[100px] text-white" placeholder="Zašto želite raditi s nama?" />
-                      </div>
-                      <Button className="w-full h-16 bg-primary hover:bg-primary/90 text-white rounded-none font-black uppercase tracking-widest text-xs">
-                        Pošalji prijavu <Send className="w-4 h-4 ml-2" />
-                      </Button>
-                      <p className="text-[8px] font-bold text-white/30 uppercase text-center tracking-widest leading-relaxed">
-                        Slanjem prijave pristajete na obradu vaših osobnih podataka u svrhu selekcijskog procesa.
-                      </p>
-                    </form>
-                  </>
-                )}
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Email adresa</Label>
+                    <Input type="email" className="bg-white/5 border-white/20 rounded-none h-14 text-white" placeholder="ivan@tvrtka.hr" required />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Link na CV / LinkedIn / Portfolio</Label>
+                    <Input className="bg-white/5 border-white/20 rounded-none h-14 text-white" placeholder="https://..." required />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Kratka poruka (Opcionalno)</Label>
+                    <Textarea className="bg-white/5 border-white/20 rounded-none min-h-[100px] text-white" placeholder="Zašto želite raditi s nama?" />
+                  </div>
+                  <Button className="w-full h-16 bg-primary hover:bg-primary/90 text-white rounded-none font-black uppercase tracking-widest text-xs">
+                    Pošalji prijavu <Send className="w-4 h-4 ml-2" />
+                  </Button>
+                  <p className="text-[8px] font-bold text-white/30 uppercase text-center tracking-widest leading-relaxed">
+                    Slanjem prijave pristajete na obradu vaših osobnih podataka u svrhu selekcijskog procesa.
+                  </p>
+                </form>
               </div>
 
               {/* Selekcijski proces sidebar */}

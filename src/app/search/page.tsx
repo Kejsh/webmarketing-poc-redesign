@@ -4,10 +4,45 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { searchKnowledgeBase, type KnowledgeSearchOutput } from "@/ai/flows/knowledge-search-flow";
-import { Loader2, Search, ArrowRight, Sparkles, FileText, Globe } from "lucide-react";
+import { Loader2, ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+
+type KnowledgeSearchOutput = {
+  aiSummary: string;
+  results: Array<{
+    title: string;
+    excerpt: string;
+    url: string;
+    category: string;
+  }>;
+};
+
+const SEARCH_INDEX: KnowledgeSearchOutput["results"] = [
+  {
+    title: "EasyEdit CMS",
+    excerpt: "Pregled platforme, sigurnosti i modularne arhitekture.",
+    url: "/easyedit",
+    category: "Platforma",
+  },
+  {
+    title: "Kontakt",
+    excerpt: "Pošaljite brief ili dogovorite demo razgovor.",
+    url: "/kontakt",
+    category: "Prodaja",
+  },
+  {
+    title: "Reference",
+    excerpt: "Istaknuti projekti i poslovni rezultati klijenata.",
+    url: "/reference/istaknuti-projekti",
+    category: "Case studies",
+  },
+  {
+    title: "Blog",
+    excerpt: "Stručni sadržaj o web razvoju, sigurnosti i integracijama.",
+    url: "/blog",
+    category: "Sadržaj",
+  },
+];
 
 function SearchResultsContent() {
   const searchParams = useSearchParams();
@@ -20,7 +55,19 @@ function SearchResultsContent() {
       if (!query) return;
       setLoading(true);
       try {
-        const result = await searchKnowledgeBase({ query });
+        const normalizedQuery = query.toLowerCase();
+        const results = SEARCH_INDEX.filter((item) => {
+          const haystack = `${item.title} ${item.excerpt} ${item.category}`.toLowerCase();
+          return haystack.includes(normalizedQuery);
+        });
+        const result: KnowledgeSearchOutput = {
+          aiSummary:
+            results.length > 0
+              ? "Pronađeni su najrelevantniji sadržaji iz lokalnog indeksa web stranice."
+              : "Nema izravnog podudaranja. Pokušajte sa širim pojmom ili drugim ključnim riječima.",
+          results,
+        };
+        await new Promise((resolve) => setTimeout(resolve, 300));
         setData(result);
       } catch (error) {
         console.error("Search error:", error);

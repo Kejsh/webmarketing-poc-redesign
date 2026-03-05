@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -23,59 +22,24 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ChevronDown, Menu, Search, Globe, X, ArrowRight } from "lucide-react";
+import { ChevronDown, Menu, Search, Globe, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { MAIN_NAV_GROUPS, type NavigationItem } from "@/config/navigation";
 
-const NAV_GROUPS = [
-  {
-    name: "Rješenja",
-    href: "/rjesenja",
-    subLinks: [
-      { name: "Sva rješenja", href: "/rjesenja" },
-      { name: "Web platforme", href: "/rjesenja/web-platforme" },
-      { name: "E-commerce sustavi", href: "/rjesenja/ecommerce" },
-      { name: "Poslovni portali", href: "/rjesenja/poslovni-portali" },
-      { name: "Integracije sustava", href: "/rjesenja/integracije" },
-      { name: "Održavanje i podrška", href: "/podrska" },
-    ],
-  },
-  { 
-    name: "EasyEdit CMS", 
-    href: "/easyedit",
-    subLinks: [
-      { name: "Pregled platforme", href: "/easyedit" },
-      { name: "Katalog modula", href: "/easyedit/moduli" },
-      { name: "Sigurnost i Trust", href: "/easyedit/sigurnost" },
-    ]
-  },
-  { name: "Klijenti", href: "/klijenti" },
-  { name: "Studije slučaja", href: "/work" },
-  { name: "Proces", href: "/proces" },
-  { 
-    name: "Resursi", 
-    href: "/insights",
-    subLinks: [
-      { name: "Blog & Insights", href: "/insights" },
-      { name: "Vodiči i Whitepapers", href: "/resursi/vodici" },
-      { name: "Česta pitanja (FAQ)", href: "/faq" },
-      { name: "Trust Center", href: "/trust" },
-    ]
-  },
-  { 
-    name: "Tvrtka", 
-    href: "/o-nama",
-    subLinks: [
-      { name: "O nama", href: "/o-nama" },
-      { name: "Nagrade i certifikati", href: "/tvrtka/nagrade" },
-      { name: "EU projekti", href: "/tvrtka/eu-projekti" },
-      { name: "Karijere", href: "/karijere" },
-    ]
-  },
-  { name: "Kontakt", href: "/kontakt" },
-];
+type FlatNavigationItem = NavigationItem & { depth: number };
+
+function flattenItems(items: NavigationItem[], depth = 0): FlatNavigationItem[] {
+  return items.flatMap((item) => {
+    const current: FlatNavigationItem = { ...item, depth };
+    if (!item.children?.length) {
+      return [current];
+    }
+    return [current, ...flattenItems(item.children, depth + 1)];
+  });
+}
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -123,29 +87,55 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Nav */}
           <nav className="hidden xl:flex items-center gap-6">
-            {NAV_GROUPS.map((link) => (
-              link.subLinks ? (
-                <DropdownMenu key={link.name}>
+            {MAIN_NAV_GROUPS.map((group) => (
+              group.kind === "dropdown" ? (
+                <DropdownMenu key={group.label}>
                   <DropdownMenuTrigger className="flex items-center gap-1 text-[13px] font-bold uppercase tracking-wider hover:text-primary transition-colors outline-none">
-                    {link.name} <ChevronDown className="w-3 h-3" />
+                    {group.label} <ChevronDown className="w-3 h-3" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start" className="rounded-none border-2 border-black min-w-[240px] p-2 shadow-2xl">
-                    {link.subLinks.map((sub) => (
-                      <DropdownMenuItem key={sub.name} asChild className="rounded-none focus:bg-primary focus:text-white cursor-pointer py-2 px-4 transition-colors">
-                        <Link href={sub.href}>{sub.name}</Link>
-                      </DropdownMenuItem>
-                    ))}
+                    {flattenItems(group.children || []).map((item) => {
+                      const depthPadding = item.depth === 0 ? "pl-4" : item.depth === 1 ? "pl-8" : "pl-12";
+
+                      if (item.clickable && item.href) {
+                        return (
+                          <DropdownMenuItem
+                            key={`${group.label}-${item.label}`}
+                            asChild
+                            className={cn(
+                              "rounded-none focus:bg-primary focus:text-white cursor-pointer py-2 px-4 transition-colors",
+                              depthPadding
+                            )}
+                          >
+                            <Link href={item.href}>{item.label}</Link>
+                          </DropdownMenuItem>
+                        );
+                      }
+
+                      return (
+                        <DropdownMenuItem
+                          key={`${group.label}-${item.label}`}
+                          disabled
+                          className={cn(
+                            "rounded-none py-2 px-4 opacity-50 cursor-not-allowed",
+                            depthPadding
+                          )}
+                          aria-disabled="true"
+                        >
+                          {item.label}
+                        </DropdownMenuItem>
+                      );
+                    })}
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
                 <Link
-                  key={link.name}
-                  href={link.href}
+                  key={group.label}
+                  href={group.href || "#"}
                   className="text-[13px] font-bold uppercase tracking-wider hover:text-primary transition-colors"
                 >
-                  {link.name}
+                  {group.label}
                 </Link>
               )
             ))}
@@ -167,8 +157,8 @@ export function Navbar() {
                  <div className="py-8">
                    <form onSubmit={handleSearchSubmit} className="relative">
                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                     <Input 
-                       placeholder="Unesite pojam (npr. ERP integracija, SEO, modula...)" 
+                     <Input
+                       placeholder="Unesite pojam (npr. ERP integracija, SEO, modula...)"
                        className="h-16 pl-12 rounded-none border-2 border-black text-lg focus:ring-primary"
                        value={searchQuery}
                        onChange={(e) => setSearchQuery(e.target.value)}
@@ -179,8 +169,8 @@ export function Navbar() {
                    <div className="mt-6 flex flex-wrap gap-4">
                      <span className="text-[10px] font-black uppercase text-black/40">Često traženo:</span>
                      {["SAP", "EasyEdit", "Sigurnost", "E-commerce"].map(t => (
-                       <button 
-                        key={t} 
+                       <button
+                        key={t}
                         onClick={() => { setSearchQuery(t); }}
                         className="text-[10px] font-bold uppercase hover:text-primary transition-colors"
                        >
@@ -191,7 +181,7 @@ export function Navbar() {
                  </div>
                </DialogContent>
              </Dialog>
-             
+
              <div className="flex items-center gap-1 text-xs font-bold uppercase">
                <Globe className="w-3 h-3" />
                <span className="text-primary">HR</span>
@@ -199,7 +189,7 @@ export function Navbar() {
                <span className="text-muted-foreground hover:text-black cursor-pointer">EN</span>
              </div>
           </div>
-          
+
           <div className="hidden lg:flex items-center gap-3">
             <Button variant="ghost" asChild className="text-xs font-bold uppercase tracking-widest border-2 border-black rounded-none hover:bg-black hover:text-white transition-all">
               <Link href="/kontakt?type=brief">Pošalji brief</Link>
@@ -209,7 +199,6 @@ export function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile Menu Trigger */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="xl:hidden border-2 border-black rounded-none">
@@ -228,29 +217,45 @@ export function Navbar() {
               <div className="flex flex-col h-[calc(100vh-80px)]">
                 <div className="flex-grow overflow-y-auto p-6">
                   <nav className="space-y-8">
-                    {NAV_GROUPS.map((group) => (
-                      <div key={group.name} className="space-y-4">
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black/40">{group.name}</h4>
+                    {MAIN_NAV_GROUPS.map((group) => (
+                      <div key={group.label} className="space-y-4">
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black/40">{group.label}</h4>
                         <div className="grid grid-cols-1 gap-3">
-                          {group.subLinks ? (
-                            group.subLinks.map((sub) => (
-                              <Link 
-                                key={sub.name} 
-                                href={sub.href}
-                                onClick={() => setMobileMenuOpen(false)}
-                                className="text-lg font-black uppercase tracking-tight hover:text-primary transition-colors flex items-center justify-between group"
-                              >
-                                {sub.name}
-                                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-                              </Link>
+                          {group.kind === "dropdown" ? (
+                            flattenItems(group.children || []).map((item) => (
+                              item.clickable && item.href ? (
+                                <Link
+                                  key={`${group.label}-${item.label}`}
+                                  href={item.href}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                  className={cn(
+                                    "text-lg font-black uppercase tracking-tight hover:text-primary transition-colors flex items-center justify-between group",
+                                    item.depth > 0 && "pl-4"
+                                  )}
+                                >
+                                  {item.label}
+                                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                                </Link>
+                              ) : (
+                                <span
+                                  key={`${group.label}-${item.label}`}
+                                  aria-disabled="true"
+                                  className={cn(
+                                    "text-lg font-black uppercase tracking-tight opacity-40 cursor-not-allowed",
+                                    item.depth > 0 && "pl-4"
+                                  )}
+                                >
+                                  {item.label}
+                                </span>
+                              )
                             ))
                           ) : (
-                            <Link 
-                              href={group.href}
+                            <Link
+                              href={group.href || "#"}
                               onClick={() => setMobileMenuOpen(false)}
                               className="text-lg font-black uppercase tracking-tight hover:text-primary transition-colors flex items-center justify-between group"
                             >
-                              {group.name}
+                              {group.label}
                               <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
                             </Link>
                           )}

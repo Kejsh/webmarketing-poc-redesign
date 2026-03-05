@@ -41,11 +41,12 @@ export function Footer() {
           <div>
             <h4 className="font-headline font-bold mb-6 text-lg">Brzi linkovi</h4>
             <ul className="space-y-4 text-white/70 text-sm">
-              <li><Link href="/rjesenja" className="hover:text-white transition-colors">Rješenja</Link></li>
+              <li><Link href="/" className="hover:text-white transition-colors">Naslovnica</Link></li>
+              <li><Link href="/reference/istaknuti-projekti" className="hover:text-white transition-colors">Reference</Link></li>
               <li><Link href="/easyedit" className="hover:text-white transition-colors">EasyEdit CMS</Link></li>
-              <li><Link href="/work" className="hover:text-white transition-colors">Studije slučaja</Link></li>
-              <li><Link href="/podrska" className="hover:text-white transition-colors">Podrška i SLA</Link></li>
-              <li><Link href="/faq" className="hover:text-white transition-colors">Česta pitanja (FAQ)</Link></li>
+              <li><Link href="/tvrtka/nasa-prica" className="hover:text-white transition-colors">Tvrtka</Link></li>
+              <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
+              <li><Link href="/kontakt" className="hover:text-white transition-colors">Kontakt</Link></li>
             </ul>
           </div>
 

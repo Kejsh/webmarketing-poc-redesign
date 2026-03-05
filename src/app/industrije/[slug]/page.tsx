@@ -1,6 +1,4 @@
 
-"use client";
-
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -13,23 +11,43 @@ import {
   Lock,
   Cpu,
   Database,
+  ShoppingCart,
   ArrowLeft,
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
 } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 
-export default function IndustryDetailPage() {
-  const params = useParams();
-  const slug = params.slug;
+const INDUSTRY_SLUGS = [
+  "osiguranje",
+  "retail",
+  "automotive",
+  "turizam",
+  "tehnologija",
+  "ostalo",
+];
+
+export function generateStaticParams() {
+  return INDUSTRY_SLUGS.map((slug) => ({ slug }));
+}
+
+export const dynamicParams = false;
+
+export default async function IndustryDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  if (!INDUSTRY_SLUGS.includes(slug)) {
+    notFound();
+  }
 
   // Placeholder mapping based on slug
-  const industryTitle = slug === 'osiguranje' ? 'Osiguranje' : 
-                       slug === 'retail' ? 'Retail & Prodaja' : 
-                       'Industrijsko rješenje';
+  const industryTitle = slug === "osiguranje"
+    ? "Osiguranje"
+    : slug === "retail"
+      ? "Retail & Prodaja"
+      : "Industrijsko rješenje";
 
   return (
     <div className="flex flex-col min-h-screen bg-white">

@@ -160,6 +160,12 @@ const CASE_STUDIES_DATA: Record<string, any> = {
   }
 };
 
+export function generateStaticParams() {
+  return Object.keys(CASE_STUDIES_DATA).map((slug) => ({ slug }));
+}
+
+export const dynamicParams = false;
+
 export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const data = CASE_STUDIES_DATA[slug];

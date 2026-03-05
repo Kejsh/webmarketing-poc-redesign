@@ -1,6 +1,4 @@
 
-"use client";
-
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -14,11 +12,25 @@ import {
   MessageSquare
 } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 
-export default function BlogPostPage() {
-  const params = useParams();
-  const slug = params.slug;
+const BLOG_POST_SLUGS = ["ai-u-enterprise-pretrazi"];
+
+export function generateStaticParams() {
+  return BLOG_POST_SLUGS.map((slug) => ({ slug }));
+}
+
+export const dynamicParams = false;
+
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  if (!BLOG_POST_SLUGS.includes(slug)) {
+    notFound();
+  }
 
   // Mock data for the article
   const article = {

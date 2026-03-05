@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ModuleRecommender } from "@/components/ai/ModuleRecommender";
@@ -18,6 +19,12 @@ import {
   Terminal
 } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "EasyEdit CMS | WEB Marketing",
+  description:
+    "EasyEdit CMS je zasebna platforma za stabilne, sigurne i skalabilne web projekte.",
+};
 
 const CORE_PILLARS = [
   {

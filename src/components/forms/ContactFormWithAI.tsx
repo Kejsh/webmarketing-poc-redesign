@@ -8,9 +8,22 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Sparkles, HelpCircle, CheckCircle2, Send, ArrowRight } from "lucide-react";
-import { generateProjectBriefOrQuestions, type IntelligentProjectBriefGeneratorOutput } from "@/ai/flows/intelligent-project-brief-generator";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+
+type IntelligentProjectBriefGeneratorOutput =
+  | {
+      type: "brief";
+      projectName: string;
+      projectDescription: string;
+      projectType: string;
+      budgetRange?: string;
+      keyGoals: string[];
+      requiredIntegrations: string[];
+    }
+  | {
+      type: "questions";
+      questions: string[];
+    };
 
 function ContactFormContent() {
   const searchParams = useSearchParams();
@@ -30,7 +43,30 @@ function ContactFormContent() {
     if (!idea.trim()) return;
     setLoading(true);
     try {
-      const output = await generateProjectBriefOrQuestions({ projectIdea: idea });
+      const hasEnoughContext = idea.length > 140 || /erp|crm|integracij|budžet|rok|api/i.test(idea);
+      const output: IntelligentProjectBriefGeneratorOutput = hasEnoughContext
+        ? {
+            type: "brief",
+            projectName: "Custom EasyEdit implementacija",
+            projectDescription: idea,
+            projectType: "Web platforma i integracije",
+            budgetRange: "20.000€ - 50.000€",
+            keyGoals: [
+              "Digitalizacija ključnih procesa",
+              "Brža obrada upita i narudžbi",
+              "Mjerljiv rast kroz stabilnu platformu",
+            ],
+            requiredIntegrations: ["ERP", "CRM", "Email sustav"],
+          }
+        : {
+            type: "questions",
+            questions: [
+              "Koji je glavni poslovni cilj projekta u prvih 6 mjeseci?",
+              "Koje postojeće sustave trebamo integrirati (ERP, CRM, billing)?",
+              "Postoji li ciljani rok lansiranja i okvirni budžet?",
+            ],
+          };
+      await new Promise((resolve) => setTimeout(resolve, 500));
       setAiResult(output);
     } catch (error) {
       console.error(error);

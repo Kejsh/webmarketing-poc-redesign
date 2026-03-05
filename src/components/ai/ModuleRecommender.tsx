@@ -6,7 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Sparkles, CheckCircle } from "lucide-react";
-import { recommendEasyEditModules, type EasyEditModuleRecommenderOutput } from "@/ai/flows/easy-edit-module-recommender-flow";
+
+type EasyEditModuleRecommenderOutput = {
+  recommendations: Array<{ moduleName: string; reason: string }>;
+  differentiation: string;
+};
 
 export function ModuleRecommender() {
   const [needs, setNeeds] = useState("");
@@ -17,7 +21,25 @@ export function ModuleRecommender() {
     if (!needs.trim()) return;
     setLoading(true);
     try {
-      const output = await recommendEasyEditModules({ businessNeeds: needs });
+      const output: EasyEditModuleRecommenderOutput = {
+        recommendations: [
+          {
+            moduleName: "ERP Bridge",
+            reason: "Pokriva sinkronizaciju podataka s postojećim poslovnim sustavima.",
+          },
+          {
+            moduleName: "Workflow Management",
+            reason: "Omogućuje automatizaciju ključnih poslovnih tokova i odobrenja.",
+          },
+          {
+            moduleName: "Advanced SEO Manager",
+            reason: "Pomaže rastu organskog prometa i boljoj vidljivosti sadržaja.",
+          },
+        ],
+        differentiation:
+          "EasyEdit omogućuje modularan rast bez vendor lock-in modela i s fokusom na enterprise sigurnost.",
+      };
+      await new Promise((resolve) => setTimeout(resolve, 500));
       setResult(output);
     } catch (error) {
       console.error(error);

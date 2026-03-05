@@ -1,7 +1,14 @@
 import type {NextConfig} from 'next';
 
+const isGitHubActions = process.env.GITHUB_ACTIONS === 'true';
+const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1];
+const ghPagesBasePath = isGitHubActions && repoName ? `/${repoName}` : '';
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'export',
+  trailingSlash: true,
+  basePath: ghPagesBasePath,
+  assetPrefix: ghPagesBasePath,
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -9,6 +16,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

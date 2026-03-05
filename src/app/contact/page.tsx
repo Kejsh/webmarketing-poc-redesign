@@ -2,7 +2,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ContactFormDualPath } from "@/components/forms/ContactFormDualPath";
-import { Mail, Phone, MapPin, Globe, Quote, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Globe, Quote, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
