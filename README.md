@@ -1,5 +1,7 @@
 # WEB Marketing - Next.js static website
 
+Live demo (GitHub Pages): https://kejsh.github.io/webmarketing-poc-redesign/
+
 Nova verzija marketinškog web sajta za WEB Marketing (`webmarketing.hr` kontekst), izrađena u Next.js App Router arhitekturi s fokusom na:
 
 - performanse
