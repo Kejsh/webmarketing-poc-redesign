@@ -1,45 +1,13 @@
+import type { Metadata } from "next";
 
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { Hero } from "@/components/home/Hero";
-import { StatsLogoWall } from "@/components/home/StatsLogoWall";
-import { SolutionCards } from "@/components/home/SolutionCards";
-import { EasyEditDifferentiator } from "@/components/home/EasyEditDifferentiator";
-import { ProcessSection } from "@/components/home/ProcessSection";
-import { CaseStudyGrid } from "@/components/home/CaseStudyGrid";
-import { InsightsCards } from "@/components/home/InsightsCards";
-import { FinalCTA } from "@/components/home/FinalCTA";
+import { HomeV2Page } from "@/components/home-v2/HomeV2Page";
+
+export const metadata: Metadata = {
+  title: "WEB Marketing | Web rješenja, e-commerce i razvoj funkcionalnosti po mjeri",
+  description:
+    "Razvijamo web rješenja, e-commerce sustave i funkcionalnosti po mjeri na vlastitom EasyEdit CMS-u. Zatražite besplatnu početnu analizu projekta.",
+};
 
 export default function Home() {
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow">
-        {/* B) Hero */}
-        <Hero />
-        
-        {/* C) Trust (Klijenti + Brojke) */}
-        <StatsLogoWall />
-        
-        {/* D) Rješenja */}
-        <SolutionCards />
-        
-        {/* E) EasyEdit CMS (Diferencijator) */}
-        <EasyEditDifferentiator />
-        
-        {/* F) Proces (Agile/Scrum) */}
-        <ProcessSection />
-        
-        {/* G) Case Studies + Testimonial */}
-        <CaseStudyGrid />
-        
-        {/* H) Resursi (Insights + Newsletter) */}
-        <InsightsCards />
-        
-        {/* I) Final CTA / Kontakt */}
-        <FinalCTA />
-      </main>
-      <Footer />
-    </div>
-  );
+  return <HomeV2Page />;
 }

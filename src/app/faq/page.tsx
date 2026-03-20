@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Search, MessageCircle, HelpCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "FAQ | WEB Marketing",
+  description:
+    "Česta pitanja o EasyEdit CMS-u, web projektima, sigurnosti, procesima suradnje i početnoj analizi.",
+};
 
 const FAQ_CATEGORIES = [
   {

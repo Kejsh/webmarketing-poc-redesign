@@ -1,278 +1,180 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ArrowRight, Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ChevronDown, Menu, Search, Globe, ArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { MAIN_NAV_ITEMS } from "@/config/navigation";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
-import { MAIN_NAV_GROUPS, type NavigationItem } from "@/config/navigation";
-
-type FlatNavigationItem = NavigationItem & { depth: number };
-
-function flattenItems(items: NavigationItem[], depth = 0): FlatNavigationItem[] {
-  return items.flatMap((item) => {
-    const current: FlatNavigationItem = { ...item, depth };
-    if (!item.children?.length) {
-      return [current];
-    }
-    return [current, ...flattenItems(item.children, depth + 1)];
-  });
-}
 
 export function Navbar() {
+  const pathname = usePathname();
+  const isHomepage = pathname === "/";
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchDialogOpen, setSearchDialogOpen] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!searchQuery.trim()) return;
-    setSearchDialogOpen(false);
-    router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
-    setSearchQuery("");
-  };
+  const isActive = (href: string) => pathname === href;
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-white",
+        "fixed left-0 right-0 top-0 z-50 transition-all duration-300",
+        isHomepage
+          ? "border-b border-white/10 bg-[#08122B]/82 backdrop-blur-2xl"
+          : "border-b border-black/8 bg-white/92 backdrop-blur-xl",
         isScrolled ? "py-3 shadow-md" : "py-5"
       )}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between">
-        <div className="flex items-center gap-12">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-primary flex items-center justify-center text-white font-bold text-2xl">
-              W
-            </div>
-            <div className="flex flex-col leading-none">
-              <span className="font-headline font-black text-xl tracking-tighter text-black uppercase">
-                WEB MARKETING
-              </span>
-              <span className="text-[10px] font-bold tracking-[0.2em] text-secondary uppercase">
-                ENGINEERING FIRST
-              </span>
-            </div>
-          </Link>
+      <div className="container mx-auto flex items-center justify-between gap-6 px-4">
+        <Link href="/" className="flex items-center gap-3">
+          <div
+            className={cn(
+              "flex h-10 w-10 items-center justify-center rounded-md border text-2xl font-bold shadow-[0_10px_24px_rgba(7,17,31,0.08)]",
+              isHomepage ? "bg-white text-[#08122B]" : "bg-primary text-white"
+            )}
+          >
+            W
+          </div>
+          <div className="flex flex-col leading-none">
+            <span
+              className={cn(
+                "font-headline text-xl font-black uppercase tracking-tighter",
+                isHomepage ? "brand-lockup-home" : "text-black"
+              )}
+            >
+              WEB MARKETING
+            </span>
+            <span
+              className={cn(
+                "text-[10px] font-bold uppercase tracking-[0.2em]",
+                isHomepage ? "brand-lockup-home-subtle" : "text-secondary"
+              )}
+            >
+              ENGINEERING FIRST
+            </span>
+          </div>
+        </Link>
 
-          <nav className="hidden xl:flex items-center gap-6">
-            {MAIN_NAV_GROUPS.map((group) => (
-              group.kind === "dropdown" ? (
-                <DropdownMenu key={group.label}>
-                  <DropdownMenuTrigger className="flex items-center gap-1 text-[13px] font-bold uppercase tracking-wider hover:text-primary transition-colors outline-none">
-                    {group.label} <ChevronDown className="w-3 h-3" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="rounded-none border-2 border-black min-w-[240px] p-2 shadow-2xl">
-                    {flattenItems(group.children || []).map((item) => {
-                      const depthPadding = item.depth === 0 ? "pl-4" : item.depth === 1 ? "pl-8" : "pl-12";
+        <nav className="hidden items-center gap-6 xl:flex">
+          {MAIN_NAV_ITEMS.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className={cn(
+                "text-[13px] font-bold uppercase tracking-wider transition-colors",
+                isHomepage ? "text-white/78 hover:text-white" : "text-black/68 hover:text-primary",
+                isActive(item.href) && (isHomepage ? "text-white" : "text-black")
+              )}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-                      if (item.clickable && item.href) {
-                        return (
-                          <DropdownMenuItem
-                            key={`${group.label}-${item.label}`}
-                            asChild
-                            className={cn(
-                              "rounded-none focus:bg-primary focus:text-white cursor-pointer py-2 px-4 transition-colors",
-                              depthPadding
-                            )}
-                          >
-                            <Link href={item.href}>{item.label}</Link>
-                          </DropdownMenuItem>
-                        );
-                      }
+        <div className="hidden xl:flex">
+          <Button
+            asChild
+            className={cn(
+              "h-11 rounded-full px-6 text-xs font-black uppercase tracking-[0.22em]",
+              isHomepage
+                ? "bg-white text-[#08122B] hover:bg-white/92 shadow-[0_18px_40px_rgba(7,17,31,0.18)]"
+                : "bg-black text-white hover:bg-black/90"
+            )}
+          >
+            <Link href="/kontakt">Zatražite besplatnu analizu</Link>
+          </Button>
+        </div>
 
-                      return (
-                        <DropdownMenuItem
-                          key={`${group.label}-${item.label}`}
-                          disabled
-                          className={cn(
-                            "rounded-none py-2 px-4 opacity-50 cursor-not-allowed",
-                            depthPadding
-                          )}
-                          aria-disabled="true"
-                        >
-                          {item.label}
-                        </DropdownMenuItem>
-                      );
-                    })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Link
-                  key={group.label}
-                  href={group.href || "#"}
-                  className="text-[13px] font-bold uppercase tracking-wider hover:text-primary transition-colors"
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className={cn(
+                "xl:hidden",
+                isHomepage
+                  ? "rounded-full border border-white/16 text-white hover:bg-white/10"
+                  : "rounded-full border border-black/12 text-black hover:bg-black/5"
+              )}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            side="right"
+            className={cn(
+              "w-full p-0 sm:max-w-md",
+              isHomepage
+                ? "border-l border-white/10 bg-[#08122B] text-white"
+                : "border-l border-black/10 bg-white text-black"
+            )}
+          >
+            <SheetHeader
+              className={cn(
+                "border-b px-6 py-6",
+                isHomepage ? "border-white/10" : "border-black/10"
+              )}
+            >
+              <SheetTitle className="flex items-center gap-3">
+                <div
+                  className={cn(
+                    "flex h-8 w-8 items-center justify-center rounded-md text-lg font-bold",
+                    isHomepage ? "bg-white text-[#08122B]" : "bg-primary text-white"
+                  )}
                 >
-                  {group.label}
-                </Link>
-              )
-            ))}
-          </nav>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <div className="hidden lg:flex items-center gap-4 border-r pr-4 border-muted">
-             <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
-               <DialogTrigger asChild>
-                 <button className="p-2 hover:bg-muted transition-colors">
-                   <Search className="w-5 h-5" />
-                 </button>
-               </DialogTrigger>
-               <DialogContent className="rounded-none border-2 border-black max-w-2xl">
-                 <DialogHeader>
-                   <DialogTitle className="font-black uppercase tracking-tight italic">Pretražite Knowledge Base</DialogTitle>
-                 </DialogHeader>
-                 <div className="py-8">
-                   <form onSubmit={handleSearchSubmit} className="relative">
-                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                     <Input
-                       placeholder="Unesite pojam (npr. ERP integracija, SEO, modula...)"
-                       className="h-16 pl-12 rounded-none border-2 border-black text-lg focus:ring-primary"
-                       value={searchQuery}
-                       onChange={(e) => setSearchQuery(e.target.value)}
-                       autoFocus
-                     />
-                     <Button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 bg-black text-white rounded-none font-black uppercase text-[10px] px-4">Traži</Button>
-                   </form>
-                   <div className="mt-6 flex flex-wrap gap-4">
-                     <span className="text-[10px] font-black uppercase text-black/40">Često traženo:</span>
-                     {["SAP", "EasyEdit", "Sigurnost", "E-commerce"].map(t => (
-                       <button
-                        key={t}
-                        onClick={() => { setSearchQuery(t); }}
-                        className="text-[10px] font-bold uppercase hover:text-primary transition-colors"
-                       >
-                         {t}
-                       </button>
-                     ))}
-                   </div>
-                 </div>
-               </DialogContent>
-             </Dialog>
-
-             <div className="flex items-center gap-1 text-xs font-bold uppercase">
-               <Globe className="w-3 h-3" />
-               <span className="text-primary">HR</span>
-               <span className="text-muted-foreground mx-1">/</span>
-               <span className="text-muted-foreground hover:text-black cursor-pointer">EN</span>
-             </div>
-          </div>
-
-          <div className="hidden lg:flex items-center gap-3">
-            <Button variant="ghost" asChild className="text-xs font-bold uppercase tracking-widest border-2 border-black rounded-none hover:bg-black hover:text-white transition-all">
-              <Link href="/kontakt?type=brief">Pošalji brief</Link>
-            </Button>
-            <Button asChild className="text-xs font-bold uppercase tracking-widest bg-primary hover:bg-primary/90 rounded-none h-10 px-6 shadow-lg shadow-primary/20">
-              <Link href="/kontakt">Dogovori Demo</Link>
-            </Button>
-          </div>
-
-          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="xl:hidden border-2 border-black rounded-none">
-                <Menu className="w-6 h-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-full sm:max-w-md p-0 rounded-none border-l-2 border-black">
-              <SheetHeader className="p-6 border-b border-black">
-                <SheetTitle className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-primary flex items-center justify-center text-white font-bold text-lg">
-                    W
-                  </div>
-                  <span className="font-headline font-black uppercase tracking-tighter">NAVIGACIJA</span>
-                </SheetTitle>
-              </SheetHeader>
-              <div className="flex flex-col h-[calc(100vh-80px)]">
-                <div className="flex-grow overflow-y-auto p-6">
-                  <nav className="space-y-8">
-                    {MAIN_NAV_GROUPS.map((group) => (
-                      <div key={group.label} className="space-y-4">
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black/40">{group.label}</h4>
-                        <div className="grid grid-cols-1 gap-3">
-                          {group.kind === "dropdown" ? (
-                            flattenItems(group.children || []).map((item) => (
-                              item.clickable && item.href ? (
-                                <Link
-                                  key={`${group.label}-${item.label}`}
-                                  href={item.href}
-                                  onClick={() => setMobileMenuOpen(false)}
-                                  className={cn(
-                                    "text-lg font-black uppercase tracking-tight hover:text-primary transition-colors flex items-center justify-between group",
-                                    item.depth > 0 && "pl-4"
-                                  )}
-                                >
-                                  {item.label}
-                                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-                                </Link>
-                              ) : (
-                                <span
-                                  key={`${group.label}-${item.label}`}
-                                  aria-disabled="true"
-                                  className={cn(
-                                    "text-lg font-black uppercase tracking-tight opacity-40 cursor-not-allowed",
-                                    item.depth > 0 && "pl-4"
-                                  )}
-                                >
-                                  {item.label}
-                                </span>
-                              )
-                            ))
-                          ) : (
-                            <Link
-                              href={group.href || "#"}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className="text-lg font-black uppercase tracking-tight hover:text-primary transition-colors flex items-center justify-between group"
-                            >
-                              {group.label}
-                              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-                            </Link>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </nav>
+                  W
                 </div>
-                <div className="p-6 bg-black mt-auto">
-                  <Button className="w-full rounded-none bg-primary hover:bg-primary/90 font-black uppercase tracking-widest text-xs h-14" asChild onClick={() => setMobileMenuOpen(false)}>
-                    <Link href="/kontakt">Započnite Projekt</Link>
-                  </Button>
-                </div>
+                <span className={cn("font-headline text-lg font-black uppercase tracking-tight", isHomepage ? "text-white" : "text-black")}>
+                  Navigacija
+                </span>
+              </SheetTitle>
+            </SheetHeader>
+
+            <div className="flex h-[calc(100vh-84px)] flex-col justify-between">
+              <nav className="space-y-3 px-6 py-8">
+                {MAIN_NAV_ITEMS.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                      "flex items-center justify-between rounded-2xl px-4 py-4 text-lg font-black uppercase tracking-tight transition-colors",
+                      isHomepage
+                        ? "bg-white/5 text-white/84 hover:bg-white/10 hover:text-white"
+                        : "bg-black/[0.03] text-black/78 hover:bg-black/[0.05] hover:text-black"
+                    )}
+                  >
+                    {item.label}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                ))}
+              </nav>
+
+              <div className={cn("p-6", isHomepage ? "bg-[#060f26]" : "bg-slate-50")}>
+                <Button
+                  asChild
+                  className={cn(
+                    "h-14 w-full rounded-full text-xs font-black uppercase tracking-[0.22em]",
+                    isHomepage ? "bg-white text-[#08122B] hover:bg-white/92" : "bg-black text-white hover:bg-black/90"
+                  )}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Link href="/kontakt">Zatražite besplatnu analizu</Link>
+                </Button>
               </div>
-            </SheetContent>
-          </Sheet>
-        </div>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );

@@ -1,0 +1,330 @@
+.shell {
+  --v2-ink: #07111f;
+  --v2-surface: #f4f7fb;
+  --v2-line: rgba(7, 17, 31, 0.1);
+  background:
+    radial-gradient(circle at top left, rgba(0, 174, 239, 0.18), transparent 28%),
+    radial-gradient(circle at 84% 8%, rgba(173, 32, 142, 0.08), transparent 20%),
+    linear-gradient(180deg, #fafcff 0%, #f4f7fb 42%, #ffffff 100%);
+  color: var(--v2-ink);
+  font-family: var(--font-home-v2-body), sans-serif;
+}
+
+.shell h1,
+.shell h2,
+.shell h3,
+.shell h4,
+.shell h5,
+.shell h6 {
+  color: var(--v2-ink);
+  font-family: var(--font-home-v2-headline), sans-serif;
+}
+
+.revealBlock {
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease;
+  will-change: opacity, transform;
+}
+
+.revealBlock[data-reveal-mounted="true"][data-reveal-state="hidden"] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.revealBlock[data-reveal-state="visible"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shell :global(.surface-dark),
+.shell :global(.surface-dark) p,
+.shell :global(.surface-dark) li,
+.shell :global(.surface-dark) span {
+  color: rgb(244 247 252);
+}
+
+.shell :global(.surface-dark) h1,
+.shell :global(.surface-dark) h2,
+.shell :global(.surface-dark) h3,
+.shell :global(.surface-dark) h4,
+.shell :global(.surface-dark) h5,
+.shell :global(.surface-dark) h6 {
+  color: #ffffff;
+}
+
+.signalPill {
+  border: 1px solid rgba(7, 17, 31, 0.12);
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(12px);
+}
+
+.sectionLabel {
+  letter-spacing: 0.24em;
+}
+
+.heroStage {
+  position: relative;
+  min-height: 42rem;
+  overflow: hidden;
+  border: 1px solid rgba(7, 17, 31, 0.08);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at top left, rgba(0, 174, 239, 0.22), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(173, 32, 142, 0.12), transparent 26%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(240, 245, 251, 0.94));
+  box-shadow: 0 34px 90px rgba(7, 17, 31, 0.14);
+}
+
+.heroStage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(7, 17, 31, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7, 17, 31, 0.05) 1px, transparent 1px);
+  background-size: 4.75rem 4.75rem;
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.heroGlow {
+  position: absolute;
+  inset: auto auto -8rem -6rem;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(0, 174, 239, 0.28), transparent 72%);
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+.heroPanel {
+  position: absolute;
+  z-index: 2;
+  border-radius: 1.8rem;
+  border: 1px solid rgba(7, 17, 31, 0.08);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 20px 48px rgba(7, 17, 31, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.heroPanelPrimary {
+  left: 1.8rem;
+  right: 1.8rem;
+  top: 1.8rem;
+  max-width: 33rem;
+  padding: 1.6rem;
+}
+
+.heroPanelSecondary {
+  left: 2rem;
+  bottom: 2rem;
+  max-width: 23rem;
+  padding: 1.25rem 1.35rem;
+}
+
+.heroPanelFloating {
+  right: 1.9rem;
+  bottom: 2.1rem;
+  width: min(19rem, calc(100% - 3.8rem));
+  padding: 1.2rem 1.25rem;
+  animation: floatCard 6.5s ease-in-out infinite;
+}
+
+.metricCard,
+.contentCard,
+.listCard,
+.glassPanel {
+  border: 1px solid rgba(7, 17, 31, 0.1);
+  box-shadow: 0 18px 40px rgba(7, 17, 31, 0.08);
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  gap: 1rem;
+}
+
+.metricCard {
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+}
+
+.metricValue,
+.metricLabel {
+  overflow-wrap: anywhere;
+}
+
+.contentCard {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(246, 250, 252, 0.98));
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.contentCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 174, 239, 0.24);
+  box-shadow: 0 22px 46px rgba(7, 17, 31, 0.12);
+}
+
+.listCard {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+}
+
+.glassPanel {
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(14px);
+}
+
+.spotlightPanel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(7, 17, 31, 0.08);
+  background:
+    radial-gradient(circle at top left, rgba(0, 174, 239, 0.14), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(173, 32, 142, 0.1), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 248, 252, 0.98));
+  box-shadow: 0 30px 80px rgba(7, 17, 31, 0.12);
+}
+
+.spotlightPanel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(7, 17, 31, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7, 17, 31, 0.05) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+.projectCard {
+  overflow: hidden;
+  border: 1px solid rgba(7, 17, 31, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(246, 250, 252, 0.98));
+  box-shadow: 0 18px 40px rgba(7, 17, 31, 0.08);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.projectCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 52px rgba(7, 17, 31, 0.14);
+}
+
+.projectImageWrap {
+  position: relative;
+  min-height: 16rem;
+  overflow: hidden;
+}
+
+.projectImage {
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.projectCard:hover .projectImage {
+  transform: scale(1.05);
+}
+
+.ctaPanel {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(0, 174, 239, 0.22), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(173, 32, 142, 0.14), transparent 26%),
+    linear-gradient(160deg, #07111f 0%, #0d1735 48%, #0f2346 100%);
+  box-shadow: 0 36px 90px rgba(7, 17, 31, 0.2);
+}
+
+.ctaPanel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 4.4rem 4.4rem;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.actionRow > * {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.longActionRow > * {
+  flex-basis: 18.75rem;
+}
+
+.primaryCta {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.primaryCta:hover {
+  background-color: #0f2346;
+  box-shadow: 0 14px 28px rgba(0, 174, 239, 0.16), 0 10px 24px rgba(7, 17, 31, 0.18);
+  transform: translateY(-1px);
+}
+
+@keyframes floatCard {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .heroStage {
+    min-height: auto;
+    padding: 1.4rem;
+  }
+
+  .heroPanel {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: none;
+    margin-top: 1rem;
+    animation: none;
+  }
+
+  .heroPanelPrimary {
+    padding: 1.35rem;
+  }
+
+  .heroPanelSecondary,
+  .heroPanelFloating {
+    padding: 1.2rem;
+  }
+
+  .actionRow > * {
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealBlock {
+    transition: none;
+  }
+}

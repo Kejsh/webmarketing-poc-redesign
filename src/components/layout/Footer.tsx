@@ -1,93 +1,137 @@
-
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Mail, Phone, MapPin, Linkedin, Clock } from "lucide-react";
+import { Clock, Linkedin, Mail, Phone } from "lucide-react";
+import { usePathname } from "next/navigation";
+
+import { MAIN_NAV_ITEMS } from "@/config/navigation";
+import { cn } from "@/lib/utils";
 
 export function Footer() {
   const [currentYear, setCurrentYear] = useState<number | null>(null);
+  const pathname = usePathname();
+  const isHomepage = pathname === "/";
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear());
   }, []);
 
   return (
-    <footer className="bg-primary text-white pt-20 pb-10">
+    <footer className={cn("surface-dark pb-10 pt-20", isHomepage ? "bg-[#08122B]" : "bg-primary")}>
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center text-primary font-bold text-xl">
+            <div className="flex items-center gap-3">
+              <div
+                className={cn(
+                  "flex h-9 w-9 items-center justify-center rounded-sm text-xl font-bold",
+                  isHomepage ? "bg-white text-[#08122B]" : "bg-white text-primary"
+                )}
+              >
                 W
               </div>
-              <span className="font-headline font-bold text-xl tracking-tight">
+              <span className={cn("font-headline font-bold tracking-tight text-white", isHomepage ? "text-2xl" : "text-xl")}>
                 WEB Marketing
               </span>
             </div>
-            <p className="text-white/60 text-sm leading-relaxed">
-              Dugoročni tehnološki partner fokusiran na stabilnost, sigurnost i skalabilnost digitalnih sustava. Razvijamo custom rješenja na vlastitoj EasyEdit platformi.
+            <p className={cn("leading-relaxed", isHomepage ? "text-base surface-dark-muted" : "text-sm surface-dark-muted")}>
+              Razvijamo web rješenja, e-commerce sustave i funkcionalnosti po mjeri na vlastitom EasyEdit CMS sustavu.
             </p>
             <div className="flex items-center gap-4">
-              <Link href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
-                <Linkedin className="w-5 h-5" />
+              <Link
+                href="#"
+                className={cn(
+                  "flex h-11 w-11 items-center justify-center rounded-full transition-colors",
+                  isHomepage ? "bg-white/10 hover:bg-white/16" : "bg-white/5 hover:bg-white/10"
+                )}
+              >
+                <Linkedin className="h-5 w-5" />
               </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
-                <Mail className="w-5 h-5" />
-              </Link>
+              <a
+                href="mailto:prodaja@wem.hr"
+                className={cn(
+                  "flex h-11 w-11 items-center justify-center rounded-full transition-colors",
+                  isHomepage ? "bg-white/10 hover:bg-white/16" : "bg-white/5 hover:bg-white/10"
+                )}
+              >
+                <Mail className="h-5 w-5" />
+              </a>
             </div>
           </div>
 
           <div>
-            <h4 className="font-headline font-bold mb-6 text-lg">Brzi linkovi</h4>
-            <ul className="space-y-4 text-white/70 text-sm">
-              <li><Link href="/" className="hover:text-white transition-colors">Naslovnica</Link></li>
-              <li><Link href="/reference/istaknuti-projekti" className="hover:text-white transition-colors">Reference</Link></li>
-              <li><Link href="/easyedit" className="hover:text-white transition-colors">EasyEdit CMS</Link></li>
-              <li><Link href="/tvrtka/nasa-prica" className="hover:text-white transition-colors">Tvrtka</Link></li>
-              <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-              <li><Link href="/kontakt" className="hover:text-white transition-colors">Kontakt</Link></li>
+            <h4 className={cn("mb-6 font-headline font-bold text-white", isHomepage ? "text-xl" : "text-lg")}>
+              Brzi linkovi
+            </h4>
+            <ul className={cn("space-y-4", isHomepage ? "text-base text-white/78" : "text-sm text-white/70")}>
+              <li>
+                <Link href="/" className="transition-colors hover:text-white">
+                  Naslovnica
+                </Link>
+              </li>
+              {MAIN_NAV_ITEMS.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className="transition-colors hover:text-white">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-headline font-bold mb-6 text-lg">Kontakt</h4>
-            <ul className="space-y-4 text-white/70 text-sm">
+            <h4 className={cn("mb-6 font-headline font-bold text-white", isHomepage ? "text-xl" : "text-lg")}>
+              Kontakt
+            </h4>
+            <ul className={cn("space-y-5", isHomepage ? "text-base text-white/80" : "text-sm text-white/70")}>
               <li className="flex items-start gap-3">
-                <Phone className="w-4 h-4 mt-0.5 text-accent" />
-                <span>+385 1 123 4567</span>
+                <Phone className="mt-0.5 h-4 w-4 text-accent" />
+                <a href="tel:+38513817757" className="transition-colors hover:text-white">
+                  +385 1 3817 757
+                </a>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="w-4 h-4 mt-0.5 text-accent" />
-                <span>info@webmarketing.hr</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 mt-0.5 text-accent" />
-                <span>Ulica 123, 10000 Zagreb, Hrvatska</span>
+                <Mail className="mt-0.5 h-4 w-4 text-accent" />
+                <a href="mailto:prodaja@wem.hr" className="transition-colors hover:text-white">
+                  prodaja@wem.hr
+                </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-headline font-bold mb-6 text-lg">Radno vrijeme</h4>
-            <ul className="space-y-4 text-white/70 text-sm">
+            <h4 className={cn("mb-6 font-headline font-bold text-white", isHomepage ? "text-xl" : "text-lg")}>
+              Radno vrijeme
+            </h4>
+            <ul className={cn("space-y-5", isHomepage ? "text-base text-white/80" : "text-sm text-white/70")}>
               <li className="flex items-start gap-3">
-                <Clock className="w-4 h-4 mt-0.5 text-accent" />
+                <Clock className="mt-0.5 h-4 w-4 text-accent" />
                 <div>
                   <p>Pon - Pet: 08:00 - 16:00</p>
-                  <p className="text-[10px] mt-1 text-white/40">Vikendom i praznicima zatvoreno</p>
+                  <p className={cn("mt-1", isHomepage ? "text-xs surface-dark-soft" : "text-[10px] surface-dark-soft")}>
+                    Vikendom i praznicima zatvoreno
+                  </p>
                 </div>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <p>© {currentYear || '...'} WEB Marketing d.o.o. Sva prava pridržana.</p>
+        <div
+          className={cn(
+            "flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-10 md:flex-row",
+            isHomepage ? "text-sm surface-dark-soft" : "text-xs surface-dark-soft"
+          )}
+        >
+          <p>© {currentYear || "..."} WEB Marketing d.o.o. Sva prava pridržana.</p>
           <div className="flex gap-6">
-            <Link href="/privatnost" className="hover:text-white">Pravila privatnosti</Link>
-            <Link href="/uvjeti" className="hover:text-white">Uvjeti korištenja</Link>
-            <button className="hover:text-white">Postavke kolačića</button>
+            <Link href="/privatnost" className="hover:text-white">
+              Pravila privatnosti
+            </Link>
+            <Link href="/uvjeti" className="hover:text-white">
+              Uvjeti korištenja
+            </Link>
           </div>
         </div>
       </div>
