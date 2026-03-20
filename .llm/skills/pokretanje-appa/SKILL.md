@@ -18,6 +18,7 @@ npm run dev
 
 - App se pokrece na `http://localhost:9002` (`next dev --turbopack -p 9002`).
 - Nakon dizanja servera otvori `/`, `/kontakt` i jednu dodatnu rutu koja je dirana u trenutnoj sesiji.
+- Prije novog `npm run dev` obavezno provjeri postoji li vec proces na `9002`; ako postoji, ugasi ga prije restarta umjesto da pokreces drugi dev server preko njega.
 
 ## Production-like Provjera
 
@@ -27,6 +28,7 @@ npm run start
 ```
 
 - Koristi ovo kada treba potvrditi da izmjene prolaze i u build modu, ne samo u dev modu.
+- Nemoj paralelno vrtjeti `next dev` i `next build` nad istim workspaceom ako koriste isti `.next/` direktorij; to moze proizvesti lazne `ENOENT`, manifest i runtime greske.
 
 ## Obavezne Provjere Nakon Pokretanja
 
@@ -44,12 +46,16 @@ npm install
 ```bash
 lsof -i :9002
 ```
-3. Ako je potrebno, ugasi stari proces i ponovno pokreni `npm run dev`.
+3. Ako je port zauzet, ugasi stari proces pa tek onda ponovno pokreni `npm run dev`:
+```bash
+kill <PID>
+```
 4. Ako build puca, pokreni:
 ```bash
 npm run typecheck
 npm run build
 ```
+5. Ako se pojave `ENOENT` greske unutar `.next/` tijekom razvoja, provjeri nije li netko upravo paralelno pokrenuo `build`, `start` ili drugi `dev` proces nad istim repozitorijem.
 
 ## Povezanost s E2E Testovima
 
